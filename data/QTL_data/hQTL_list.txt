@@ -1,0 +1,7 @@
+H3K9ac_ROSMAP	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/xQTLServe/besd/GRCh38/ROSMAP_H3K9AC_chr...	TRUE
+H3K4me1_BLUEPRINT	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/blueprint/besd/GRCh38/K4ME1_log2rpm_peer_10_all_summary_update	FALSE
+H3K27ac_BLUEPRINT	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/blueprint/besd/GRCh38/K4ME1_log2rpm_peer_10_all_summary_update	FALSE
+H3K27ac_GTEx_heart	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/GTEx/besd/gARE_heart	FALSE
+H3K27ac_GTEx_brain	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/GTEx/besd/gARE_brain	FALSE
+H3K27ac_GTEx_lung	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/GTEx/besd/gARE_lung	FALSE
+H3K27ac_GTEx_muscle	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/GTEx/besd/gARE_muscle	FALSE

@@ -1,0 +1,3 @@
+CpG_link	/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus/CpG_consensus_all.link
+hQTL_link	/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus/hQTL_consensus_all.link
+caQTL_link	/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus/caQTL_consensus_all.link

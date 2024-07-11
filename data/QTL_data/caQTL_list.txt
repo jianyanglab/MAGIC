@@ -1,0 +1,5 @@
+caQTL_brain	/storage/yangjianLab/sharedata/molecular_QTL/caQTL/Bryois_2018_NatComm/GRCh38/bryois_NatCommun_2018_50kb_cQTLs_update	FALSE
+caQTL_blood	/storage/yangjianLab/sharedata/molecular_QTL/caQTL/Kumasaka_2018_NatGenet/GRCh38/caQTL_sparse_update	FALSE
+caQTL_neuro	/storage/yangjianLab/sharedata/molecular_QTL/caQTL/Brain_Neuron_Glia_Zeng_2023_BioRxiv/besd/neuron_meta_caQTL_chr	TRUE
+caQTL_glia	/storage/yangjianLab/sharedata/molecular_QTL/caQTL/Brain_Neuron_Glia_Zeng_2023_BioRxiv/besd/glia_meta_caQTL_chr	TRUE
+caQTL_Microglia	/storage/yangjianLab/sharedata/molecular_QTL/caQTL/Microglia_Regulome_Kosoy_2022_NG/besd/microglia_macrophage_meta-caQTL_summary_chr	TRUE

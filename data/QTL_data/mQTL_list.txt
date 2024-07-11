@@ -1,0 +1,11 @@
+GoDMC	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GoDMC/BESD_GRCh38/assoc_meta_chr	TRUE
+BrainmMeta	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/Brain-mMeta/GRCh38/Brain-mMeta_GRCh38	FALSE
+mQTL_GTEx_BreastMammaryTissue	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/BreastMammaryTissue_mQTLs_chr	TRUE
+mQTL_GTEx_KidneyCortex	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/KidneyCortex_mQTLs_chr	TRUE
+mQTL_GTEx_MuscleSkeletal	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/MuscleSkeletal_mQTLs_chr TRUE
+mQTL_GTEx_Prostate	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/Prostate_mQTLs_chr TRUE
+mQTL_GTEx_WholeBlood	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/WholeBlood_mQTLs_chr TRUE
+mQTL_GTEx_ColonTransverse	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/ColonTransverse_mQTLs_chr TRUE
+mQTL_GTEx_Lung	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/Lung_mQTLs_chr TRUE
+mQTL_GTEx_Ovary	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/Ovary_mQTLs_chr TRUE
+mQTL_GTEx_Testis	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/Testis_mQTLs_chr TRUE

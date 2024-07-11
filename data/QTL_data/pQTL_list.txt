@@ -1,0 +1,7 @@
+pQTL_3brain	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/freeze1/merged_pQTL_brain/GRCh38/merged_pQTL_brain_38_update	FALSE
+pQTL_6plasma	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/freeze1/merged_pQTL_plasma/merged_6pQTL_plasma_GRCh38_chr	TRUE
+pQTL_FHS	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_FHS/BESD/GRCh38/pqtl-1000G	FALSE
+pQTL_FENLAND	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_FENLAND/GRCh38/pQTL_FENLAND_merged_all_update	FALSE
+pQTL_ARIC	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_ARIC/GRCh38_version/SMR_Besd_format/pQTL_ARIC_EA_besd	FALSE
+pQTL_UKB_Phase2	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/UKB_PPP/besd/UKB_PPP_Phase2_chr	TRUE
+pQTL_AGES	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_AGES/GRCh38_version/pQTL_AGES_all_dense_chr	TRUE
