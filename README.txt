@@ -4,13 +4,13 @@
 CONFIG_template=$1
 trait_name=$2
 GWAS_DATA=$3
-WORK_DIR=${4:-"/storage/yangjianLab/guoyazhou/GAMMA_git"}
+WORK_DIR=${4:-"/storage/yangjianLab/guoyazhou/GAMMA_git/L2G/MAGIC"}
 OUTPUT=${5:-"/storage/yangjianLab/guoyazhou/GAMMA_git_data"}
-SCRIPT_DIR=${6:-"/storage/yangjianLab/guoyazhou/GAMMA_github/gamma-script/scripts"}
+SCRIPT_DIR=${6:-"/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"}
 
 ## Config first
 ./scripts/config.sh \
-    ./deploy/HPC/template.yaml \
+    ./deploy/HPC/demo.yaml \
     ${trait_name} \
     ${GWAS_DATA} \
     ${WORK_DIR} \
@@ -20,6 +20,6 @@ SCRIPT_DIR=${6:-"/storage/yangjianLab/guoyazhou/GAMMA_github/gamma-script/script
 ## Check GWAS data
 ./scripts/gwas_format.sh ${CONFIG}
 
-## GAMMA pipeline
+## MAGIC pipeline
 CONFIG=${WORK_DIR}/yaml_file/${trait_name}.yaml
 ./deploy/HPC/MAGIC_sbatch.sh ${CONFIG}
