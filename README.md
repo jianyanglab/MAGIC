@@ -1,2 +1,0 @@
-# MAGIC
-# To be updated.
