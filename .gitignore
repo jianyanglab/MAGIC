@@ -2,3 +2,10 @@ plot/
 results/
 scripts/out_log
 scripts/error_log
+.DS_Store
+.idea
+*.log
+tmp/
+
+error_log/
+out_log/
