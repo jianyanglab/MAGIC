@@ -36,30 +36,27 @@ qtl_name=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}'`
 qtl_data=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'`
 qtl_chr=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}'`
 
-if [ -z "$qtl_name" ]; then
-    echo "no QTL in line $qtl_i, skip"
-    exit 0
+echo "smr=${SMR}"
+echo "qtl_name=${qtl_name}"
+echo "qtl_data=${qtl_data}"
+echo "qtl_chr=${qtl_chr}"
+
+module load gcc intelmkl
+
+# export OMP_DISPLAY_ENV=TRUE
+if grep -q "AuthenticAMD" /proc/cpuinfo; then
+    echo "export MKL_DEBUG_CPU_TYPE=5"
+    export MKL_DEBUG_CPU_TYPE=5
 fi
 
-for i in $(seq 1 22); do
-
-    if [ "$qtl_chr" = "TRUE" ]; then
-        # QTL_data="${qtl_data}_chr${i}"
-		QTL_data="${qtl_data}${i}"
-    else
-        QTL_data="${qtl_data}"
-    fi
-
-    "${SMR}" --bld "${REFERENCE_bld}_chr${i}" \
-        --gwas-summary "${GWAS_DATA}" \
-        --beqtl-summary "${QTL_data}" \
-		--probe-chr ${i} \
-        --maf 0.01 \
-        --smr-multi \
-        --thread-num 4 \
-        --out "${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr${i}"
-
-done
+"${SMR}" --bld "${REFERENCE_bld}_chr" \
+    --gwas-summary "${GWAS_DATA}" \
+    --beqtl-list "${QTL_list}" \
+    --beqtl-list-index ${qtl_i} \
+    --maf 0.01 \
+    --smr-multi \
+    --thread-num 4 \
+    --out "${OUTPUT}/MAGIC/SMR/detail/${trait_name}"
 
 awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr*.msmr > ${OUTPUT}/MAGIC/SMR/summary/${trait_name}_${qtl_name}_chrALL.msmr
 

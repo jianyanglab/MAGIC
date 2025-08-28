@@ -12,3 +12,11 @@ scripts/error_log
 /database/results
 database/sbatch_script/out_log
 database/sbatch_script/error_log
+
+.DS_Store
+.idea
+*.log
+tmp/
+
+error_log/
+out_log/
