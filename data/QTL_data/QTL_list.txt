@@ -1,4 +1,4 @@
-eQTL_eQTLGen	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/eQTLGen/cis-eQTL/GRCh38/eQTLGen_CHRALL	FALSE
+eQTLGen	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/eQTLGen/cis-eQTL/GRCh38/eQTLGen_CHRALL	FALSE
 eQTL_Microglia_Regulome	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/Microglia_Regulome_Kosoy_2022_NG/besd/Microglia_meta_eQTL_chr	TRUE
 eQTL_Adipose	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/Adipose_eQTL/BESD/GRCh38/geneQTL_METSIM_n426_adipose_summaryStats_1Mb_chr	TRUE
 eQTL_DIRECT	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/DIRECT/besd/GRCh38/DIRECT_CHRALL	FALSE
@@ -204,8 +204,11 @@ pQTL_FHS	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_FHS/BESD/GRCh38/
 pQTL_FENLAND	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_FENLAND/GRCh38/pQTL_FENLAND_merged_all_update	FALSE
 pQTL_ARIC	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_ARIC/GRCh38_version/SMR_Besd_format/pQTL_ARIC_EA_besd	FALSE
 pQTL_AGES	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_AGES/GRCh38_version/pQTL_AGES_all_dense_chr	TRUE
+pQTL_SCALLOP	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_SCALLOP/besd/ninety_pQTL_format_eQTL	FALSE
+pQTL_INTERVAL	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_INTERVAL/pQTL_3KProt	FALSE
 mQTL_GoDMC	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GoDMC/BESD_GRCh38/assoc_meta_chr	TRUE
 mQTL_BrainMeta	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/Brain-mMeta/GRCh38/Brain-mMeta_GRCh38	FALSE
+mQTL_McRae	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/LBC_BSGS_meta/GRCh38/bl_mqtl_chr	TRUE
 mQTL_GTEx_Breast_Mammary_Tissue	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/BreastMammaryTissue_mQTLs_chr	TRUE
 mQTL_GTEx_Kidney_Cortex	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/KidneyCortex_mQTLs_chr	TRUE
 mQTL_GTEx_Muscle_Skeletal	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GTEx/besd_hg38/MuscleSkeletal_mQTLs_chr	TRUE

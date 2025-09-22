@@ -1,9 +1,9 @@
 chr=2222
-
 qtl_name=()
 qtl_data=()
-# Dynamic assignments for public eQTL data
 QTL_DIRT="/storage/yangjianLab/sharedata/molecular_QTL"
+
+# Dynamic assignments for public eQTL data
 eQTL_Microglia_Regulome="${QTL_DIRT}/eQTL/Microglia_Regulome_Kosoy_2022_NG/besd/Microglia_meta_eQTL_chr${chr}"
 eQTL_Adipose="${QTL_DIRT}/eQTL/Adipose_eQTL/BESD/GRCh38/geneQTL_METSIM_n426_adipose_summaryStats_1Mb_chr${chr}"
 eQTL_DIRECT="${QTL_DIRT}/eQTL/DIRECT/besd/GRCh38/DIRECT_CHRALL"
@@ -15,6 +15,7 @@ eQTL_BrainMeta="${QTL_DIRT}/eQTL/BrainMeta_cis_eqtl_summary/GRCh38/BrainMeta_cis
 sQTL_BrainMeta="${QTL_DIRT}/eQTL/BrainMeta_cis_sqtl_summary/GRCh38/BrainMeta_cis_sQTL_chr${chr}"
 qtl_name+=("eQTL_Microglia_Regulome" "eQTL_Adipose" "eQTL_DIRECT" "eQTL_eQTLGen" "eQTL_fetal_brain" "eQTL_microglia" "sQTL_microglia" "eQTL_BrainMeta" "sQTL_BrainMeta")
 qtl_data+=("$eQTL_Microglia_Regulome" "$eQTL_Adipose" "$eQTL_DIRECT" "$eQTLGen" "$eQTL_fetal_brain" "$eQTL_microglia" "$sQTL_microglia" "$eQTL_BrainMeta" "$sQTL_BrainMeta")
+
 
 # Dynamic assignments for brain cell types (qtl_index: 9-16)
 brain_CellType=("Microglia" "Pericytes" "Oligodendrocytes" "Endothelial.cells" "Inhibitory.neurons" "Excitatory.neurons" "OPCs...COPs" "Astrocytes")
@@ -45,65 +46,70 @@ do
     qtl_data+=("${eQTL_subtype}")
 done
 
+
 # Dynamic assignments from onek1k (qtl_index: 88-101)
-while read -r tissue
+CELL_TYPE=$(ls ${QTL_DIRT}/eQTL/OneK1K/besd/*_onek1k_eqtl.esi | awk -F '/' '{print $9}' | awk -F '_onek1k_eqtl' '{print $1}')
+for subtype in ${CELL_TYPE[@]}
 do
-    eQTL_OneK1K="${QTL_DIRT}/eQTL/OneK1K/besd/${tissue}_onek1k_eqtl"
-    qtl_name+=("eQTL_onek1k_${tissue}")
+    eQTL_OneK1K="${QTL_DIRT}/eQTL/OneK1K/besd/${subtype}_onek1k_eqtl"
+    qtl_name+=("eQTL_onek1k_${subtype}")
     qtl_data+=("${eQTL_OneK1K}")
-done < <(ls ${QTL_DIRT}/eQTL/OneK1K/besd/*_onek1k_eqtl.esi | awk -F '/' '{print $9}' | awk -F '_onek1k_eqtl' '{print $1}')
+done
+
 
 # Add similar loops for GTEx eQTL data (qtl_index: 102-150)
 QTL_DIRT1="${QTL_DIRT}/eQTL/gtex_resources_besd/eQTL_hg38/eQTL_besd_hg38"
 PATTERN="${QTL_DIRT1}/*_eQTL_all_chr22.esi"
-if compgen -G "$PATTERN" > /dev/null; then
-    while read -r tissue; do
-        eQTL_GTEx="${QTL_DIRT1}/${tissue}_eQTL_all_chr${chr}"
-        qtl_name+=("eQTL_GTEx_${tissue}")
-        qtl_data+=("${eQTL_GTEx}")
-    done < <(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '_eQTL' '{print $1}')
-else
-    echo "No files match the pattern ${PATTERN}"
-fi
+
+TISUUE=$(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '_eQTL' '{print $1}')
+for tissue in ${TISUUE[@]}
+do
+    eQTL_GTEx="${QTL_DIRT1}/${tissue}_eQTL_all_chr${chr}"
+    qtl_name+=("eQTL_GTEx_${tissue}")
+    qtl_data+=("${eQTL_GTEx}")
+done
+
 
 # Add loops for GTEx sQTL data (qtl_index: 151-199)
 QTL_DIRT1="${QTL_DIRT}/eQTL/gtex_resources_besd/sQTL_hg38/sQTL_besd_hg38"
 PATTERN="${QTL_DIRT1}/*_sQTL_all_chr22.esi"
-if compgen -G "$PATTERN" > /dev/null; then
-    while read -r tissue; do
-        sQTL_GTEx="${QTL_DIRT1}/${tissue}_sQTL_all_chr${chr}"
-        qtl_name+=("sQTL_GTEx_${tissue}")
-        qtl_data+=("${sQTL_GTEx}")
-    done < <(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '_sQTL' '{print $1}')
-else
-    echo "No files match the pattern ${PATTERN}"
-fi
+
+TISSUE=$(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '_sQTL' '{print $1}')
+for tissue in ${TISSUE[@]}
+do
+    sQTL_GTEx="${QTL_DIRT1}/${tissue}_sQTL_all_chr${chr}"
+    qtl_name+=("sQTL_GTEx_${tissue}")
+    qtl_data+=("${sQTL_GTEx}")
+done
+
+
 
 # Add loops for GTEx edQTL data (qtl_index: 200-248)
 QTL_DIRT1="${QTL_DIRT}/eQTL/gtex_resources_besd/editingQTL/besd"
 PATTERN="${QTL_DIRT1}/*.nominal.esi"
-if compgen -G "$PATTERN" > /dev/null; then
-    while read -r tissue; do
-        edQTL_GTEx="${QTL_DIRT1}/${tissue}.nominal"
-        qtl_name+=("edQTL_GTEx_${tissue}")
-        qtl_data+=("${edQTL_GTEx}")
-    done < <(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '.nominal' '{print $1}')
-else
-    echo "No files match the pattern ${PATTERN}"
-fi
+TISSUE=$(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '.nominal' '{print $1}')
+for tissue in ${TISSUE[@]}
+do
+    edQTL_GTEx="${QTL_DIRT1}/${tissue}.nominal"
+    qtl_name+=("edQTL_GTEx_${tissue}")
+    qtl_data+=("${edQTL_GTEx}")
+done
+
 
 # sc-eQTL from eQTL catlogue (qtl_index: 249-379)
 QTL_DIRT1="${QTL_DIRT}/eQTL/sceQTL/besd"
 PATTERN="${QTL_DIRT1}/*.all.esi"
-if compgen -G "$PATTERN" > /dev/null; then
-    while read -r study; do
-        sceQTL="${QTL_DIRT1}/${study}.all"
-        qtl_name+=("eQTL_catalogue_${study}")
-        qtl_data+=("${sceQTL}")
-    done < <(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '.all' '{print $1}')
-else
-    echo "No files match the pattern ${PATTERN}"
-fi
+
+TISSUE=$(ls $PATTERN | awk -F '/' '{print $(NF)}' | awk -F '.all' '{print $1}')
+for study in ${TISSUE[@]}
+do
+    sceQTL="${QTL_DIRT1}/${study}.all"
+    qtl_name+=("eQTL_catalogue_${study}")
+    qtl_data+=("${sceQTL}")
+done
+
+
+
 
 #PsyENCODE2 Developmental eQTL/sQTL/isoQTL
 # eQTL
@@ -114,6 +120,7 @@ qtl_data+=("${edQTL_GTEx}")
 edQTL_GTEx="${QTL_DIRT1}/T2_chr${chr}"
 qtl_name+=("PEC_Tri2_eqtl")
 qtl_data+=("${edQTL_GTEx}")
+
 
 # isoQTL
 QTL_DIRT1="${QTL_DIRT}/eQTL/PsychENCODE2/isoQTL/besd"
@@ -135,10 +142,9 @@ qtl_data+=("${edQTL_GTEx}")
 
 
 
-
 # 获取qtl_data的长度
-len=${#qtl_data[@]}
-echo "The length of the array is: $len"
+## len=${#qtl_data[@]}
+## echo "The length of the array is: $len"
 
 # 遍历qtl_data数组
 for qtl_index in `seq 0 $((len-1))`
@@ -156,6 +162,38 @@ do
 
     # 打印结果
     echo -e "${qtl_name[qtl_index]}\t${qtl_data_updated}\t${qtl_chr}"
-done
+done 
 
+
+# > /storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/QTL_data/match_list/qtl_name_match_list_all.txt
+
+
+# -------------------------------------------------
+# -------------------------------------------------
+# -------------------------------------------------
+# The following needs to be run in R --------------
+qtl_data=fread("/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/QTL_data/qtl_script/MAGIC_QTL_data.txt")
+qtl_name_match_list=fread("/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/QTL_data/match_list/qtl_name_match_list_all.txt")
+index=match(qtl_data$V1, qtl_name_match_list$`QTL_name_old (Ting)`, nomatch=0)
+qtl_data$V1[which(index!=0)]=qtl_name_match_list$QTL_name_new[index]
+qtl_data$V1[which(index==0)]
+
+
+qtl_data_old=fread("/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/QTL_data/QTL_list.txt")
+qtl_data_new=rbind(qtl_data, qtl_data_old)
+
+qtl_data_new_sorted <- qtl_data_new[order(qtl_data_new$V1), ]
+qtl_data_new_sorted_unique <- unique(qtl_data_new_sorted)
+
+QTL_name_list=fread("/storage/yangjianLab/guoyazhou/GAMMA_github/gamma-script/scripts/L2G/MAGIC_data/QTL_data/QTL_data_name_list.txt", head=F)
+index=which(qtl_data_new_sorted_unique$V1 %in% QTL_name_list$V1)
+qtl_data_new_sorted_unique$V1[-index]
+
+index=which(qtl_data_new_sorted_unique$V1 == "eQTLGen")
+dim(qtl_data_new_sorted_unique)
+qtl_data_new_sorted_unique=qtl_data_new_sorted_unique[-index,]
+dim(qtl_data_new_sorted_unique)
+
+
+fwrite(qtl_data_new_sorted_unique, "/storage/yangjianLab/guoyazhou/GAMMA_github/gamma-script/scripts/L2G/MAGIC_data/QTL_data/QTL_list.txt", sep="\t", quote=F, row.names=F, col.names=F)
 
