@@ -38,5 +38,3 @@ link_annotation:
   PCHiC: "/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/PCHiC_Combined_ProteinCoding_GRCh38.bed"
   Promoter: "/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.PromoterTSS1kb.GRCh38.bed"
   closestTSS: "/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.closestTSS.GRCh38.bed"
-yaml:
-  user_xQTL_link_consensus: /storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/deploy/HPC/demo.yaml
