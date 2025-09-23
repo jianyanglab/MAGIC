@@ -3,7 +3,6 @@
 CONFIG=$1
 
 trait_name=`yq .input.trait "${CONFIG}"`
-GWAS_DATA=`yq .input.gwas "${CONFIG}"`
 SCRIPT_DIR=`yq .script.path "${CONFIG}"`
 WORK_DIR=`yq .script.work_path "${CONFIG}"`
 
@@ -39,13 +38,16 @@ echo "Clumping analysis: $Clumping_jid"
 # SMR analysis
 # ------------------------------------------------------------------------
 
+# amd-ep2-short does not have `/data` directory
 SMR_jid=$(/opt/slurm/bin/sbatch --parsable \
   -J SMR_analysis \
   -c 5 \
-  -p intel-sc3,amd-ep2,amd-ep2-short \
+  -p intel-sc3,amd-ep2 \
   -q normal \
-  -a 1-229 \
+  -a 1-2 \
+  --ntasks 1 \
   --ntasks-per-node 1 \
+  --hint nomultithread \
   --mem 36G \
   -o ./out_log/smr/${trait_name}_SMR_%A_%a_out.txt \
   -e ./error_log/smr/${trait_name}_SMR_%A_%a_error.txt \
@@ -57,18 +59,17 @@ echo "SMR analysis: $SMR_jid"
 # MAGIC analysis
 # ------------------------------------------------------------------------
 
-MAGIC_jid=$(/opt/slurm/bin/sbatch --parsable \
-  -d afterok:${Clumping_jid}:${SMR_jid} \
-  -J MAGIC_analysis \
-  -c 4 \
-  -p intel-sc3,amd-ep2,amd-ep2-short \
-  -q normal \
-  -a 1 \
-  --ntasks-per-node 1 \
-  --mem 20G \
-  -o ./out_log/magic/MAGIC_${trait_name}_%A_%a_out.txt \
-  -e ./error_log/magic/MAGIC_${trait_name}_%A_%a_error.txt \
-  ${SCRIPT_DIR}/MAGIC.sh ${CONFIG})
+# MAGIC_jid=$(/opt/slurm/bin/sbatch --parsable \
+#   -d afterok:${Clumping_jid}:${SMR_jid} \
+#   -J MAGIC_analysis \
+#   -c 4 \
+#   -p intel-sc3,amd-ep2,amd-ep2-short \
+#   -q normal \
+#   -a 1 \
+#   --ntasks-per-node 1 \
+#   --mem 20G \
+#   -o ./out_log/magic/MAGIC_${trait_name}_%A_%a_out.txt \
+#   -e ./error_log/magic/MAGIC_${trait_name}_%A_%a_error.txt \
+#   ${SCRIPT_DIR}/MAGIC.sh ${CONFIG})
 
-echo "MAGIC analysis: $MAGIC_jid"
-
+# echo "MAGIC analysis: $MAGIC_jid"
