@@ -131,4 +131,4 @@ fi
 done
 
 user_xQTL_link_consensus="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link"
-yq -i ".yaml.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$user_xQTL_link_consensus"
+yq -i ".input.user_xQTL_link_consensus = \"$CONFIG\"" "$CONFIG"
