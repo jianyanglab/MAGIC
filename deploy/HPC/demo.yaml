@@ -5,7 +5,7 @@ input:
   gwas: "/storage/yangjianLab/sharedata/GWAS_summary/01_Public/01_cojo/DIAMANTE_EUR_T2D_2022_NG.txt"
   output: "/storage/yangjianLab/guoyazhou/GAMMA_git_data"
   user_xQTL_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts/user_xQTL_input/user_xQTL_list.txt"
-  user_xQTL_link_consensus: /storage/yangjianLab/guoyazhou/GAMMA_git_data/MAGIC/user_xQTL/user_xQTL_consensus.link
+  user_xQTL_link_consensus: /storage/yangjianLab/guoyazhou/GAMMA_git_data/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
 script:
   work_path: "/storage/yangjianLab/guoyazhou/GAMMA_git/L2G/MAGIC"
   path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
