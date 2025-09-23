@@ -11,7 +11,7 @@ script:
   work_path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
   path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
 software:
-  smr: "/storage/yangjianLab/yangwen/alpha-software/smr/smr-1.3.2-alpha3-linux"
+  smr: "/storage/yangjianLab/wangkai/SMR/build/Release/smr"
   plink1_9: "/storage/yangjianLab/guoyazhou/software/plink/plink1.90beta/plink_1.90_beta"
   plink2: "/storage/yangjianLab/guoyazhou/software/plink/plink2.00alpha/plink2"
   bedtools: "/storage/yangjianLab/guoyazhou/anaconda3/bin/bedtools"
