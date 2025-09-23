@@ -9,6 +9,8 @@ SCRIPT_DIR=`yq .script.path "${CONFIG}"`
 GWAS_DATA=`yq .input.gwas "${CONFIG}"`
 trait_name=`yq .input.trait "${CONFIG}"`
 OUTPUT=`yq .input.output "${CONFIG}"`
+user_xQTL_link_consensus=`yq .input.user_xQTL_link_consensus "${CONFIG}"`
+
 
 mkdir -p ${OUTPUT}/MAGIC/plot
 mkdir -p ${OUTPUT}/MAGIC/summary
@@ -32,9 +34,9 @@ Rscript ${SCRIPT_DIR}/MAGIC.R \
     ${OUTPUT} \
     ${magic_functions_file} \
     ${gencode_file} \
-    ${CpG_link_file} \
-    ${hQTL_link_file} \
-    ${caQTL_link_file} \
+    ${user_xQTL_link_consensus} \
+    ${user_xQTL_link_consensus} \
+    ${user_xQTL_link_consensus} \
     ${GWAS_DATA} \
     ${reference_bim_file}
 
