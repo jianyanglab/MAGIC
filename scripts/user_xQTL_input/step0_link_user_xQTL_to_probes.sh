@@ -121,14 +121,14 @@ rm ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_Promoter.link
 rm ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_closestTSS.link
 
 
-cat ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_consensus.link >> ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link 
-
-
 else
 	echo "Skipping non-epigenetic xQTL type: ${qtl_type}"
 fi
 
 done
 
-user_xQTL_link_consensus="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link"
+
+awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/user_xQTL/*_consensus.link >> ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
+
+user_xQTL_link_consensus="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt"
 yq -i ".input.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$CONFIG"
