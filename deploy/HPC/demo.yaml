@@ -4,6 +4,7 @@ input:
   gwas_raw: "/storage/yangjianLab/sharedata/GWAS_summary/01_Public/01_cojo/DIAMANTE_EUR_T2D_2022_NG.txt"
   gwas: "/storage/yangjianLab/sharedata/GWAS_summary/01_Public/01_cojo/DIAMANTE_EUR_T2D_2022_NG.txt"
   output: "/storage/yangjianLab/guoyazhou/GAMMA_git_data"
+  user_e2g_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts/user_xQTL_input/user_e2g_list.txt"
   user_xQTL_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts/user_xQTL_input/user_xQTL_list.txt"
   user_xQTL_link_consensus: /storage/yangjianLab/guoyazhou/GAMMA_git_data/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
 script:
@@ -38,3 +39,15 @@ link_annotation:
   PCHiC: "/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/PCHiC_Combined_ProteinCoding_GRCh38.bed"
   Promoter: "/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.PromoterTSS1kb.GRCh38.bed"
   closestTSS: "/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.closestTSS.GRCh38.bed"
+R_dependencies:
+  r_version: "4.2.1"
+  r_packages:
+    data.table: "1.15.4"
+    stringr: "1.5.1"
+    dplyr: "1.1.4"
+    qvalue: "2.30.0"
+    tidyverse: "2.0.0"
+    GenomicRanges: "1.50.2"
+    regioneR: "1.30.0"
+    Repitools: "1.44.0"
+    mgcv: "1.8.40"

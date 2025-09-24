@@ -1,0 +1,6 @@
+ABC	/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/ABC0.015_ProteinCoding_GRCh38_CHRALL.bed
+EpiMap	/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/EpiMap_links_by_group.CHRALL_GRCh38.bed
+RoadMap	/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/Roadmap_links_ProteinCoding_GRCh38.bed
+PCHiC	/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/PCHiC_Combined_ProteinCoding_GRCh38.bed
+Promoter	/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.PromoterTSS1kb.GRCh38.bed
+closestTSS	/storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.closestTSS.GRCh38.bed
