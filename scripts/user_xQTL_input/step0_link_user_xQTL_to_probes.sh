@@ -82,7 +82,7 @@ for e2g_i in $(seq 1 ${e2g_list_num}); do
 			closest -wa -wb \
 			-g ${genome_hg38} \
 			-a ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed \
-			-b ${closestTSS} > ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_${e2g_name}.link 
+			-b ${e2g_bed_file} > ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_${e2g_name}.link 
 	else
 		${bedtools} \
 			intersect -wa -wb \
