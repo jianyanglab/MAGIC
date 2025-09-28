@@ -135,6 +135,11 @@ MAGIC_plot[paste0(QTL_types, "_name")] <- NA
 MAGIC_plot[paste0(QTL_types, "_probeID")] <- NA
 
 get_min_index_and_name <- function(gene_name, SMR_p_ACAT, SMR_probeID) {
+    
+    if(dim(SMR_p_ACAT)[2]==0){
+        return(list(name = NA, probeID = NA))
+    }
+    
     index <- which.min(SMR_p_ACAT[gene_name, ])
     name <- ifelse(length(index) > 0, colnames(SMR_p_ACAT)[index], NA)
     probeID <- ifelse(length(index) > 0, SMR_probeID[gene_name, index], NA)
@@ -142,6 +147,7 @@ get_min_index_and_name <- function(gene_name, SMR_p_ACAT, SMR_probeID) {
 }
 
 for (qtl in QTL_types) {
+    print(qtl)
     MAGIC_plot_list <- apply(MAGIC_plot[, "gene_name", drop = FALSE], 1, function(gene_name) {
 		get_min_index_and_name(gene_name, get(qtl)$SMR_p_ACAT, get(qtl)$SMR_probeID)
     })
