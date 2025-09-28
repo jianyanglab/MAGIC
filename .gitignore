@@ -1,1 +1,4 @@
 plot/
+results/
+scripts/out_log
+scripts/error_log

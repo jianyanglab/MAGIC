@@ -24,8 +24,8 @@ hQTL_link_file=`yq .magic.hQTL_link "${CONFIG}"`
 caQTL_link_file=`yq .magic.caQTL_link "${CONFIG}"`
 reference_bim_file=`yq .reference.reference_all_bim "${CONFIG}"`
 
-env=`yq .environment.R_421 "${CONFIG}"`
-source activate ${env}
+# env=`yq .environment.R_421 "${CONFIG}"`
+# source activate ${env}
 
 Rscript ${SCRIPT_DIR}/MAGIC.R \
     ${trait_name} \

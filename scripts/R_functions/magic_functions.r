@@ -77,11 +77,13 @@ read_smr_data1 <- function(SMR_DIRT, result, trait_name, qtl_type, HEIDI=FALSE) 
 			SMR_probeID[which(index!=0), i] = smr$probeID[index]
 		}
 	}
-	}
+
 
 	colnames(SMR_p_ACAT)=qtl_name_list
 	colnames(SMR_probeID)=paste0("probeID_", qtl_name_list)
 	rownames(SMR_p_ACAT)=rownames(SMR_probeID)=result$gene_name
+
+	}
 
  return(list(SMR_p_ACAT = SMR_p_ACAT, SMR_probeID = SMR_probeID, SMR_results=SMR_results))
 }
@@ -134,11 +136,13 @@ read_smr_data2 <- function(SMR_DIRT, result, trait_name, qtl_type, QTL_link, HEI
 			SMR_probeID[which(index!=0), i] = smr$probeID[index]
 		}
 	}
-	}
+	
 
 	colnames(SMR_p_ACAT)=qtl_name_list
 	colnames(SMR_probeID)=paste0("probeID_", qtl_name_list)
 	rownames(SMR_p_ACAT)=rownames(SMR_probeID)=result$gene_name
+	
+	}
 
 	return(list(SMR_p_ACAT=SMR_p_ACAT, SMR_probeID=SMR_probeID, SMR_results=SMR_results))
 }
