@@ -3,12 +3,13 @@
 set -e
 
 CONFIG=$1
+qtl_i=$2
+chr1=$3
+chr2=$4
 
 mkdir -p ${OUTPUT}/MAGIC/SMR/detail
 mkdir -p ${OUTPUT}/MAGIC/SMR/summary
 
-# TODO loop over qtl_i
-qtl_i=$2
 qtl_name=$(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}')
 qtl_data=$(realpath --relative-to=${MAGIC_ROOT} $(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'))
 qtl_chr=$(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}')
@@ -17,7 +18,7 @@ echo "SMR: ${SMR}"
 echo "qtl_list: ${QTL_list}"
 echo "qtl_data=${qtl_data}"
 
-for i in $(seq 1 1); do
+for i in $(seq $chr1 $chr2); do
 
     if [ "$qtl_chr" = "TRUE" ]; then
         QTL_data="${qtl_data}${i}"

@@ -46,12 +46,13 @@ export genome_hg38=$(get_config_as_path ".link_annotation.genome_hg38")
 export user_xQTL_link_consensus=$(get_config_as_path '.input.user_xQTL_link_consensus')
 
 function usage {
-    echo "usage: xmagic --gwas <gwas_path> --reference_bfile <referece_bfile_path> --xqtl <xQTL list file path> --e2g <e2g list file path>"
+    echo "usage: xmagic --gwas <gwas_path> --reference_bfile <referece_bfile_path> --xqtl <xQTL list file path> --e2g <e2g list file path> --chr <chromosome range or index>"
     echo "   ";
     echo "  --gwas            : GWAS data path";
     echo "  --reference_bfile : Referece bed file path";
     echo "  --xqtl            : xQTL list file path";
     echo "  --e2g             : e2g list file path";
+    echo "  --chr             : Chromosome range or index, e.g. 1,22 or 1"
     echo "  --help            : This message";
 }
 
@@ -66,6 +67,7 @@ function parse_args {
             --reference_bfile ) reference_bfile="$2"; shift;;
             --xqtl )            xqtl_list="$2";       shift;;
             --e2g )             e2g_list="$2";        shift;;
+            --chr )             chr="$2";             shift;;
             -h | --help )       usage;                exit;; 
             * )                 usage;                exit;;
         esac
@@ -87,19 +89,47 @@ function run {
     echo "reference_bfile: $reference_bfile"
     echo "xQTL: $xqtl_list"
     echo "e2g: $e2g_list"
+    echo "chr: $chr"
+
+    if [[ -z "$chr" ]]; then
+        chr1=1
+        chr2=22
+    else
+        IFS=',' read -r chr1 chr2 <<< "$chr"
+        if [[ -z "$chr1" ]] && [[ -z "$chr2" ]]; then
+            chr1=1
+            chr2=2
+        elif [[ ! -z "$chr1" ]] && [[ -z "$chr2" ]]; then
+            chr2=$chr1
+        else
+            chr1=1
+            chr2=22
+        fi
+    fi
+
+    if ! (( $chr1 >= 1 && $chr2 <= 22  && $chr1 <= $chr2)); then
+        echo "Invalid chromosome index!"
+        exit 1;
+    fi
 
     export GWAS_DATA=$gwas
     export QTL_list=$xqtl_list
     export user_e2g_list=$e2g_list
     export REFERENCE=$reference_bfile
+    export QTL_list_num=$(cat ${QTL_list} | wc -l)
 
     yq -i -y ".input.gwas = \"$GWAS_DATA\"" $CONFIG
     yq -i -y ".reference.reference_bfile = \"$REFERENCE\"" $CONFIG
     yq -i -y ".input.user_e2g_list = \"$user_e2g_list\"" $CONFIG
     yq -i -y ".input.user_xQTL_list = \"$QTL_list\"" $CONFIG
 
-    ${SCRIPT_DIR}/run_clumping.sh config.yaml
-    ${SCRIPT_DIR}/run_smr.sh config.yaml 1
+    # Run scripts
+    ${SCRIPT_DIR}/run_clumping.sh config.yaml $chr1 $chr2
+
+    for qtl_i in $(seq QTL_list_num); do
+        ${SCRIPT_DIR}/run_smr.sh config.yaml ${qtl_i} $chr1 $chr2
+    done
+
     ${SCRIPT_DIR}/run_step_0.sh config.yaml
     ${SCRIPT_DIR}/run_magic.sh config.yaml
 }

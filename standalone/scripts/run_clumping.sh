@@ -6,11 +6,15 @@ set -e
 # Clumping #
 ############
 
+CONFIG=$1
+chr1=$2
+chr2=$3
+
 mkdir -p ${OUTPUT}/MAGIC/Clumping/detail
 mkdir -p ${OUTPUT}/MAGIC/Clumping/summary
 
 # ----
-for i in $(seq 1 22)
+for i in $(seq $chr1 $chr2)
 do
 
 ${plink1_9} \
