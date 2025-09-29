@@ -22,12 +22,12 @@ xMAGIC integrates GWAS and xQTL summary statistics in a single-step analysis.
 
 We have curated and prepared a variety of publicly available molecular QTL data (downloadable from the yanglab website) and functional element-to-gene maps (downloadable from the yanglab website), which users can use to perform the xMAGIC analysis with their specific complex trait of interest. For illustration purposes, we provide demonstration data that can be used to run xMAGIC analysis with the command line below.
 
-## Running xMAGIC
+### Running xMAGIC
 
 The basic command to run xMAGIC is:
 
 ```
-xmagic --besd-flist myxqtl.list --gwas-summary mygwas.ma --bfile myldref --e2g-flist mye2g.list --out myxmagic
+xmagic --besd-flist /data/myxqtl.list --gwas-summary /data/mygwas.ma --bfile /data/myldref --e2g-flist /data/mye2g.list --out /data/myxmagic
 ```
 
 `--besd-flist`: A file listing paths to multiple xQTL BESD files (format similar to SMR: https://yanglab.westlake.edu.cn/software/smr/#DataManagement). These can include eQTLs, sQTLs, pQTLs, mQTLs, haQTLs, etc.
@@ -58,8 +58,6 @@ chr10 100009140   100009540   DNMBP   0.0255084527477278  A Cardiomyocyte
 chr10 100009140   100009540   DNMBP   0.0414193988769557  A Cardiomyocyte
 ```
 
-If provided, these links override default mapping methods for the specified elements.
-
 Example Output (.xmagic):
 
 ```
@@ -72,7 +70,7 @@ chr1    1785285 1891117 -   ENSG00000078369 GNB1    0.0020844378    0.001483188 
 
 Columns include chromosome, start/end positions, strand, gene ID, gene symbol, overall xMAGIC p-value, and layer-specific p-values (eQTL, sQTL, pQTL, edQTL, caQTL, mQTL, hQTL), with NA indicating unavailable data.
 
-## Additional Parameters
+### Additional Parameters
 
 ```
 xmagic --besd-flist myxqtl.list --gwas-summary mygwas.ma --bfile myldref --e2g-flist mye2g.list --thresh-smr 0.05 --thresh-heidi 0.01 --thread-num 4 --out myxmagic
