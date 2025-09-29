@@ -1,10 +1,11 @@
 input:
   trait: T2D
-  gwas_raw: data/gwas_raw/DIAMANTE_EUR_T2D_2022_NG.txt
-  gwas: data/gwas_raw/DIAMANTE_EUR_T2D_2022_NG.txt
+  gwas_raw: data/gwas/GWAS_T2D_chr11.txt
+  gwas: data/gwas/GWAS_T2D_chr11.txt
   output: output
   user_xQTL_list: data/user_xQTL_list/user_xQTL_list.txt
   user_e2g_list: data/user_e2g_list/user_e2g_list.txt
+  user_xQTL_name_list: output/user_xQTL/user_xQTL_name_list.txt
   user_xQTL_link_consensus: /home/kai/WestlakeProjects/MAGIC-standalone/output/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
 script:
   path: scripts

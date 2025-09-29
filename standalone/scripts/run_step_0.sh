@@ -6,25 +6,9 @@ set -e
 #  Input
 # ------------------------------------------------------------------------
 CONFIG=$1
-SCRIPT_DIR=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .script.path ${CONFIG}))
-GWAS_DATA=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .input.gwas ${CONFIG}))
-trait_name=$(yq -r .input.trait ${CONFIG})
-OUTPUT=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .input.output ${CONFIG}))
-user_e2g_list=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .input.user_e2g_list ${CONFIG}))
-user_xQTL_list=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .input.user_xQTL_list ${CONFIG}))
+chr1=$2
+chr2=$3
 
-epi_to_bed=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .software.epi_to_bed ${CONFIG}))
-bedtools=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .software.bedtools ${CONFIG}))
-get_concensus_link=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .software.get_concensus_link ${CONFIG}))
-
-genome_hg38=$(realpath --relative-to=${MAGIC_ROOT} -- $(yq -r .link_annotation.genome_hg38 ${CONFIG}))
-
-# ABC=`yq .link_annotation.ABC "${CONFIG}"`
-# EpiMap=`yq .link_annotation.EpiMap "${CONFIG}"`
-# RoadMap=`yq .link_annotation.RoadMap "${CONFIG}"`
-# PCHiC=`yq .link_annotation.PCHiC "${CONFIG}"`
-# Promoter=`yq .link_annotation.Promoter "${CONFIG}"`
-# closestTSS=`yq .link_annotation.closestTSS "${CONFIG}"`
 
 mkdir -p ${OUTPUT}/MAGIC/user_xQTL
 
@@ -40,9 +24,11 @@ fi
 for qtl_i in $(seq 1 ${QTL_list_num}); do
 	echo "Processing QTL ${qtl_i} of ${QTL_list_num}"
 
+	
 	qtl_name=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}'`
 	qtl_data=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'`
 	qtl_chr=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}'`
+
 
 
 # ------------------------------------------------------------------------
@@ -51,12 +37,13 @@ for qtl_i in $(seq 1 ${QTL_list_num}); do
 qtl_type=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $4}'`
 
 if [ "$qtl_type" = "epigenetic" ]; then
+	echo "Processing epigenetic xQTL type: ${qtl_name}, ${qtl_type}"
 
 	if [ -f "${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed" ]; then
 		rm ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed 
 	fi
 	if [ "$qtl_chr" = "TRUE" ]; then
-		for i in $(seq 1 22); do
+		for i in $(seq $chr1 $chr2); do
     		QTL_data="${qtl_data}${i}"
 			Rscript ${epi_to_bed} \
 				--INFILE ${QTL_data}.epi \
@@ -71,12 +58,16 @@ if [ "$qtl_type" = "epigenetic" ]; then
 			--out ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed
     fi
 
+	cat ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed  | sort -k1,1V -k2,2n > ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed.tmp
+	mv ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed.tmp ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed
 
 for e2g_i in $(seq 1 ${e2g_list_num}); do
 
 	
 	e2g_name=`head -n ${e2g_i} ${e2g_list} | tail -n1 | awk -F "\t" '{print $1}'`
 	e2g_bed_file=`head -n ${e2g_i} ${e2g_list} | tail -n1 | awk -F "\t" '{print $2}'`
+
+	echo ${e2g_name} ${e2g_bed_file}
 
 	if [ "$e2g_name" = "closestTSS" ]; then
 		${bedtools} \
@@ -133,4 +124,8 @@ done
 awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/user_xQTL/*_consensus.link.txt >> ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
 
 user_xQTL_link_consensus="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt"
-yq -i -y ".input.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$CONFIG"
+yq -i -r ".input.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$CONFIG"
+
+cut -f 1 ${user_xQTL_list} > ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_name_list.txt
+user_xQTL_name_list="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_name_list.txt"
+yq -i  -r ".input.user_xQTL_name_list = \"$user_xQTL_name_list\"" "$CONFIG"

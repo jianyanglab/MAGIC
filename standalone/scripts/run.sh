@@ -125,12 +125,12 @@ function run {
 
     # Run scripts
     ${SCRIPT_DIR}/run_clumping.sh config.yaml $chr1 $chr2
+    ${SCRIPT_DIR}/run_step_0.sh config.yaml $chr1 $chr2
 
-    for qtl_i in $(seq QTL_list_num); do
+    for qtl_i in $(seq ${QTL_list_num}); do
         ${SCRIPT_DIR}/run_smr.sh config.yaml ${qtl_i} $chr1 $chr2
     done
 
-    ${SCRIPT_DIR}/run_step_0.sh config.yaml
     ${SCRIPT_DIR}/run_magic.sh config.yaml
 }
 

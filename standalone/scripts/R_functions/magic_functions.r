@@ -47,7 +47,7 @@ read_smr_data1 <- function(SMR_DIRT, result, trait_name, qtl_type, HEIDI=FALSE) 
 	SMR_results=data.frame()
 	qtl_name_list=c()
 
-	if(length(file_list) > 0){
+	if(length(file_list)>0){
 	for(i in 1:length(file_list)) {
 		infile = file_list[i]
 		# print(infile)
@@ -56,13 +56,17 @@ read_smr_data1 <- function(SMR_DIRT, result, trait_name, qtl_type, HEIDI=FALSE) 
 		
 		smr <- fread(paste0(SMR_DIRT,infile),head=T,stringsAsFactors=F,data.table=F)
 		smr <- rm_mhc_hg38(smr)
-		if(HEIDI){
-			smr <- smr[which(smr$p_HEIDI>=0.01),]
-		}
 		if(nrow(smr)>0){
+			if (!"p_SMR_multi" %in% colnames(smr)) {
+				smr$p_SMR_multi <- NA
+			}
 			smr$QTL_name = qtl_name
 			smr$trait_name = trait_name
         	smr$p_ACAT = apply(smr[,c("p_SMR","p_SMR_multi")],1,ACAT)
+			if(HEIDI){
+				index=which(smr$p_HEIDI>0.01)
+				smr$p_ACAT[-index]=NA
+			}
         	smr$probe_ID=str_split_fixed(smr$probeID,"\\.",Inf)[,1]
 		
 			index=match(smr$probe_ID,result$gene_id,nomatch=0)
@@ -77,12 +81,10 @@ read_smr_data1 <- function(SMR_DIRT, result, trait_name, qtl_type, HEIDI=FALSE) 
 			SMR_probeID[which(index!=0), i] = smr$probeID[index]
 		}
 	}
-
-
+	
 	colnames(SMR_p_ACAT)=qtl_name_list
 	colnames(SMR_probeID)=paste0("probeID_", qtl_name_list)
 	rownames(SMR_p_ACAT)=rownames(SMR_probeID)=result$gene_name
-
 	}
 
  return(list(SMR_p_ACAT = SMR_p_ACAT, SMR_probeID = SMR_probeID, SMR_results=SMR_results))
@@ -102,7 +104,7 @@ read_smr_data2 <- function(SMR_DIRT, result, trait_name, qtl_type, QTL_link, HEI
 	SMR_results=data.frame()
 	qtl_name_list=c()
 
-	if(length(file_list) > 0){
+	if(length(file_list)>0){
 	for(i in 1:length(file_list)) {
 		infile = file_list[i]
 		# print(infile)
@@ -115,15 +117,24 @@ read_smr_data2 <- function(SMR_DIRT, result, trait_name, qtl_type, QTL_link, HEI
 			smr <- smr[which(smr$p_HEIDI>=0.01),]
 		}
 		if(nrow(smr) > 0){
+			if (!"p_SMR_multi" %in% colnames(smr)) {
+				smr$p_SMR_multi <- NA
+			}
 			smr$QTL_name = qtl_name
 			smr$trait_name = trait_name
 			smr$p_ACAT = apply(smr[,c("p_SMR","p_SMR_multi")],1,ACAT)
+			if(HEIDI){
+				index=which(smr$p_HEIDI>0.01)
+				smr$p_ACAT[-index]=NA
+			}
 			smr$probe_ID=smr$probeID
 
 			# qvlaue=qvalue(smr_data$p_ACAT)$qval
 			# index=which(qvlaue<0.05 & smr_data$p_HEIDI>=0.01)
 			# index=which(smr_data$p_ACAT<0.05 & smr_data$p_HEIDI>=0.01)
 
+			# do not link gene thorugh epi annotations.
+			smr$Gene=NA
 			index=match(smr$probeID,QTL_link$V4,nomatch=0)
 			smr$Gene[which(index!=0)]=QTL_link$V8[index]
 
@@ -136,12 +147,10 @@ read_smr_data2 <- function(SMR_DIRT, result, trait_name, qtl_type, QTL_link, HEI
 			SMR_probeID[which(index!=0), i] = smr$probeID[index]
 		}
 	}
-	
 
 	colnames(SMR_p_ACAT)=qtl_name_list
 	colnames(SMR_probeID)=paste0("probeID_", qtl_name_list)
 	rownames(SMR_p_ACAT)=rownames(SMR_probeID)=result$gene_name
-	
 	}
 
 	return(list(SMR_p_ACAT=SMR_p_ACAT, SMR_probeID=SMR_probeID, SMR_results=SMR_results))

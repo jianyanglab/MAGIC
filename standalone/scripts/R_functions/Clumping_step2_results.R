@@ -9,7 +9,7 @@ suppressMessages({
   library(data.table)
 })
 
-Clumping_results=read.table(paste0(OUTPUT,"/MAGIC/Clumping/summary/",trait_name,".clumped"),head=T,stringsAsFactors=F)
+Clumping_results=read.table(paste0(OUTPUT,"/Clumping/summary/",trait_name,".clumped"),head=T,stringsAsFactors=F)
 colnames(Clumping_results)[1]="Chr"
 colnames(Clumping_results)[4]="bp"
 colnames(Clumping_results)[5]="p"
@@ -122,4 +122,4 @@ res$P=NA
 index=match(res$Lead_SNP, data$SNP, nomatch=0)
 res$P[which(index!=0)]=data$p[index]
 
-write.table(res, paste0(OUTPUT,"/MAGIC/Clumping/summary/",trait_name,".locus"),row=F,col=T,quo=F,sep="\t")
+write.table(res, paste0(OUTPUT,"/Clumping/summary/",trait_name,".locus"),row=F,col=T,quo=F,sep="\t")
