@@ -6,12 +6,13 @@ input:
   output: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/results"
   user_e2g_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/demo/user_e2g_list.txt"
   user_xQTL_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/demo/user_xQTL_list.txt"
+  user_xQTL_name_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/results/MAGIC/user_xQTL/user_xQTL_name_list.txt"
   user_xQTL_link_consensus: /storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/results/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
 script:
   work_path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
   path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
 software:
-  smr: "/storage/yangjianLab/guoyazhou/software/SMR/smr_new/smr-1.4.0-linux-x86_64/smr"
+  smr: "/storage/yangjianLab/yangwen/alpha-software/smr/smr-1.3.2-alpha3-linux"
   plink1_9: "/storage/yangjianLab/guoyazhou/software/plink/plink1.90beta/plink_1.90_beta"
   plink2: "/storage/yangjianLab/guoyazhou/software/plink/plink2.00alpha/plink2"
   bedtools: "/storage/yangjianLab/guoyazhou/anaconda3/bin/bedtools"
@@ -20,13 +21,14 @@ software:
 environment:
   R_421: "Drugsets_py385"
 reference:
-  reference_bfile: "/storage/yangjianLab/guoyazhou/data/Reference/UKB_Reference_genotype/genotype_10k_hg38/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38"
-  reference_bld: "/storage/yangjianLab/guoyazhou/project_new/project_SMR_visualizaiton/script/test_script/run_time_test/bld_format/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_4Mb"
+  reference_bfile: "/storage/yangjianLab/guoyazhou/data/Reference/UKB_Reference_genotype/genotype_10k_hg38/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_chr"
+  reference_bld: "/storage/yangjianLab/guoyazhou/project_new/project_SMR_visualizaiton/script/test_script/run_time_test/bld_format/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_4Mb_chr"
   reference_all_bim: "/storage/yangjianLab/sharedata/LD_reference/UKB/genotype_10K/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_chrALL.bim"
 gene:
   gencode: "/storage/yangjianLab/qiting/data/annotation/gencode/gencode.v40.GRCh38.gene.annotation.bed"
 magic:
   QTL_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/QTL_data/QTL_list.txt"
+  QTL_name_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/gamma-script/scripts/L2G/MAGIC_data/QTL_data/QTL_data_name_list.txt"
   R_functions: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts/R_functions/magic_functions.r"
   CpG_link: "/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus/CpG_consensus_all.link"
   hQTL_link: "/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus/hQTL_consensus_all.link"

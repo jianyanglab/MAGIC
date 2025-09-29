@@ -10,8 +10,8 @@ GWAS_DATA=`yq .input.gwas "${CONFIG}"`
 trait_name=`yq .input.trait "${CONFIG}"`
 OUTPUT=`yq .input.output "${CONFIG}"`
 
-mkdir -p ${OUTPUT}/MAGIC/SMR/detail
-mkdir -p ${OUTPUT}/MAGIC/SMR/summary
+mkdir -p ${OUTPUT}/SMR/detail
+mkdir -p ${OUTPUT}/SMR/summary
 
 # ------------------------------------------------------------------------
 #  SMR analysis
@@ -19,6 +19,7 @@ mkdir -p ${OUTPUT}/MAGIC/SMR/summary
 
 SMR=`yq .software.smr "${CONFIG}"`
 REFERENCE_bld=`yq .reference.reference_bld "${CONFIG}"`
+REFERENCE_bfile=`yq .reference.reference_bfile "${CONFIG}"`
 user_xQTL_list=`yq .input.user_xQTL_list "${CONFIG}"`
 # QTL_list=`yq .magic.QTL_list "${CONFIG}"`
 QTL_list=${user_xQTL_list}
@@ -37,24 +38,24 @@ qtl_name=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}'`
 qtl_data=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'`
 qtl_chr=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}'`
 
-for i in $(seq 1 22); do
-
+# for i in $(seq 1 22); do
+    i=11
     if [ "$qtl_chr" = "TRUE" ]; then
         QTL_data="${qtl_data}${i}"
     else
         QTL_data="${qtl_data}"
     fi
 
-    "${SMR}" --bld "${REFERENCE_bld}_chr${i}" \
+    "${SMR}" --bld "${REFERENCE_bld}${i}" \
         --gwas-summary "${GWAS_DATA}" \
         --beqtl-summary "${QTL_data}" \
         --maf 0.01 \
         --smr-multi \
         --thread-num 4 \
-        --out "${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr${i}"
+        --out "${OUTPUT}/SMR/detail/${trait_name}_${qtl_name}_chr${i}"
 
-done
+# done
 
-awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr*.msmr > ${OUTPUT}/MAGIC/SMR/summary/${trait_name}_${qtl_name}_chrALL.msmr
+awk 'NR==1 || FNR>1' ${OUTPUT}/SMR/detail/${trait_name}_${qtl_name}_chr*.msmr > ${OUTPUT}/SMR/summary/${trait_name}_${qtl_name}_chrALL.msmr
 
-rm ${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr*
+rm ${OUTPUT}/SMR/detail/${trait_name}_${qtl_name}_chr*

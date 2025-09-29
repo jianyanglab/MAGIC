@@ -10,11 +10,13 @@ GWAS_DATA=`yq .input.gwas "${CONFIG}"`
 trait_name=`yq .input.trait "${CONFIG}"`
 OUTPUT=`yq .input.output "${CONFIG}"`
 user_xQTL_link_consensus=`yq .input.user_xQTL_link_consensus "${CONFIG}"`
+user_xQTL_name_list=`yq .input.user_xQTL_name_list "${CONFIG}"`
 
 
 mkdir -p ${OUTPUT}/MAGIC/plot
 mkdir -p ${OUTPUT}/MAGIC/summary
 mkdir -p ${OUTPUT}/MAGIC/gwas
+mkdir -p ${OUTPUT}/MAGIC/results
 
 # ------------------------------------------------------------------------
 #  MAGIC analysis
@@ -38,5 +40,7 @@ Rscript ${SCRIPT_DIR}/MAGIC.R \
     ${user_xQTL_link_consensus} \
     ${user_xQTL_link_consensus} \
     ${GWAS_DATA} \
-    ${reference_bim_file}
+    ${reference_bim_file} \
+    ${user_xQTL_name_list}
+
 

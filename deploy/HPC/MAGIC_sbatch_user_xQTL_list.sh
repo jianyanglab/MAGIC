@@ -36,7 +36,7 @@ Clumping_jid=$(/opt/slurm/bin/sbatch --parsable \
   --mem 16G \
   -o ./out_log/clumping/${trait_name}_Clumping_%A_%a_out.txt \
   -e ./error_log/clumping/${trait_name}_Clumping_%A_%a_error.txt \
-  ${SCRIPT_DIR}/Clumping.sh ${CONFIG})
+  ${SCRIPT_DIR}/Clumping_user_xQTL.sh ${CONFIG})
 
 echo "Clumping analysis: $Clumping_jid"
 

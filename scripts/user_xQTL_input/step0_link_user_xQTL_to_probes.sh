@@ -39,9 +39,11 @@ fi
 for qtl_i in $(seq 1 ${QTL_list_num}); do
 	echo "Processing QTL ${qtl_i} of ${QTL_list_num}"
 
+	
 	qtl_name=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}'`
 	qtl_data=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'`
 	qtl_chr=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}'`
+
 
 
 # ------------------------------------------------------------------------
@@ -50,19 +52,21 @@ for qtl_i in $(seq 1 ${QTL_list_num}); do
 qtl_type=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $4}'`
 
 if [ "$qtl_type" = "epigenetic" ]; then
+	echo "Processing epigenetic xQTL type: ${qtl_name}, ${qtl_type}"
 
 	if [ -f "${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed" ]; then
 		rm ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed 
 	fi
 	if [ "$qtl_chr" = "TRUE" ]; then
-		for i in $(seq 1 22); do
+		# for i in $(seq 1 22); do
+			i=11
     		QTL_data="${qtl_data}${i}"
 			Rscript ${epi_to_bed} \
 				--INFILE ${QTL_data}.epi \
 				--out ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_chr${i}.bed
 
 			cat ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}_chr${i}.bed >> ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed 
-		done
+		# done
     else
         QTL_data="${qtl_data}"
 		Rscript ${epi_to_bed} \
@@ -70,12 +74,16 @@ if [ "$qtl_type" = "epigenetic" ]; then
 			--out ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed
     fi
 
+	cat ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed  | sort -k1,1V -k2,2n > ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed.tmp
+	mv ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed.tmp ${OUTPUT}/MAGIC/user_xQTL/${qtl_name}.bed
 
 for e2g_i in $(seq 1 ${e2g_list_num}); do
 
 	
 	e2g_name=`head -n ${e2g_i} ${e2g_list} | tail -n1 | awk -F "\t" '{print $1}'`
 	e2g_bed_file=`head -n ${e2g_i} ${e2g_list} | tail -n1 | awk -F "\t" '{print $2}'`
+
+	echo ${e2g_name} ${e2g_bed_file}
 
 	if [ "$e2g_name" = "closestTSS" ]; then
 		${bedtools} \
@@ -133,3 +141,7 @@ awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/user_xQTL/*_consensus.link.txt >> ${OUTPUT}
 
 user_xQTL_link_consensus="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt"
 yq -i ".input.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$CONFIG"
+
+cut -f 1 ${user_xQTL_list} > ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_name_list.txt
+user_xQTL_name_list="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_name_list.txt"
+yq -i ".input.user_xQTL_name_list = \"$user_xQTL_name_list\"" "$CONFIG"
