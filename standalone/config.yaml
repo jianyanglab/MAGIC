@@ -1,0 +1,38 @@
+input:
+  trait: T2D
+  gwas_raw: data/gwas_raw/DIAMANTE_EUR_T2D_2022_NG.txt
+  gwas: data/gwas_raw/DIAMANTE_EUR_T2D_2022_NG.txt
+  output: output
+  user_xQTL_list: data/user_xQTL_list/user_xQTL_list.txt
+  user_e2g_list: data/user_e2g_list/user_e2g_list.txt
+  user_xQTL_link_consensus: /home/kai/WestlakeProjects/MAGIC-standalone/output/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
+script:
+  path: scripts
+software:
+  smr: softwares/smr
+  plink1_9: softwares/plink_1.90_beta
+  bedtools: softwares/bedtools
+  epi_to_bed: softwares/epi_2_bed.R
+  get_concensus_link: scripts/user_xQTL_input/step0_get_consensus_link.R
+environment:
+  R_421: Drugsets_py385
+reference:
+  reference_bfile: data/reference_bfile/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38
+  reference_bld: /storage/yangjianLab/guoyazhou/project_SMR_visualizaiton/script/test_script/run_time_test/bld_format/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_4Mb
+  reference_all_bim: data/LD_reference/UKB/genotype_10K/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_chrALL.bim
+gene:
+  gencode: data/annotation/gencode/gencode.v40.GRCh38.gene.annotation.bed
+magic:
+  QTL_list: /storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/QTL_data/QTL_list.txt
+  R_functions: scripts/R_functions/magic_functions.r
+  CpG_link: data/SMR_Cauchy/link/consensus/CpG_consensus_all.link
+  hQTL_link: data/SMR_Cauchy/link/consensus/hQTL_consensus_all.link
+  caQTL_link: data/SMR_Cauchy/link/consensus/caQTL_consensus_all.link
+link_annotation:
+  genome_hg38: data/GRCh38/GRCh38.genome
+  ABC: /storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/ABC0.015_ProteinCoding_GRCh38_CHRALL.bed
+  EpiMap: /storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/EpiMap_links_by_group.CHRALL_GRCh38.bed
+  RoadMap: /storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/Roadmap_links_ProteinCoding_GRCh38.bed
+  PCHiC: /storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/PCHiC_Combined_ProteinCoding_GRCh38.bed
+  Promoter: /storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.PromoterTSS1kb.GRCh38.bed
+  closestTSS: /storage/yangjianLab/qiting/SMR_Cauchy/xMAGIC_pipeline/epimark-to-gene/gencode.v40.closestTSS.GRCh38.bed

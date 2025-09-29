@@ -1,0 +1,16 @@
+name: magic_renv
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.2.1
+  - r-data.table
+  - r-stringr
+  - r-dplyr
+  - r-tidyverse
+  - r-mgcv
+  - r-optparse
+  - bioconductor-qvalue
+  - bioconductor-regioner
+  - bioconductor-repitools
+  - bioconductor-genomicranges
