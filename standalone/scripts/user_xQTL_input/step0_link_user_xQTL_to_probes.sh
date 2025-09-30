@@ -132,8 +132,8 @@ done
 awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/user_xQTL/*_consensus.link.txt >> ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
 
 user_xQTL_link_consensus="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_consensus.link.txt"
-yq -i -y ".input.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$CONFIG"
+yq -i ".input.user_xQTL_link_consensus = \"$user_xQTL_link_consensus\"" "$CONFIG"
 
 cut -f 1 ${user_xQTL_list} > ${OUTPUT}/MAGIC/user_xQTL/user_xQTL_name_list.txt
 user_xQTL_name_list="${OUTPUT}/MAGIC/user_xQTL/user_xQTL_name_list.txt"
-yq -i -y ".input.user_xQTL_name_list = \"$user_xQTL_name_list\"" "$CONFIG"
+yq -i ".input.user_xQTL_name_list = \"$user_xQTL_name_list\"" "$CONFIG"

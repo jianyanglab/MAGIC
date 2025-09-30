@@ -118,10 +118,10 @@ function run {
     export REFERENCE=$reference_bfile
     export QTL_list_num=$(cat ${QTL_list} | wc -l)
 
-    yq -i -y ".input.gwas = \"$GWAS_DATA\"" $CONFIG
-    yq -i -y ".reference.reference_bfile = \"$REFERENCE\"" $CONFIG
-    yq -i -y ".input.user_e2g_list = \"$user_e2g_list\"" $CONFIG
-    yq -i -y ".input.user_xQTL_list = \"$QTL_list\"" $CONFIG
+    yq -i ".input.gwas = \"$GWAS_DATA\"" $CONFIG
+    yq -i ".reference.reference_bfile = \"$REFERENCE\"" $CONFIG
+    yq -i ".input.user_e2g_list = \"$user_e2g_list\"" $CONFIG
+    yq -i ".input.user_xQTL_list = \"$QTL_list\"" $CONFIG
 
     # Run scripts
     ${SCRIPT_DIR}/run_clumping.sh config.yaml $chr1 $chr2

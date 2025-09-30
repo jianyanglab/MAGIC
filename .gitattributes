@@ -2,3 +2,4 @@
 standalone/softwares/plink_1.90_beta filter=lfs diff=lfs merge=lfs -text
 standalone/softwares/smr filter=lfs diff=lfs merge=lfs -text
 standalone/softwares/bedtools filter=lfs diff=lfs merge=lfs -text
+*.tar filter=lfs diff=lfs merge=lfs -text

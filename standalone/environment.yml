@@ -14,3 +14,4 @@ dependencies:
   - bioconductor-regioner
   - bioconductor-repitools
   - bioconductor-genomicranges
+  - bedtools

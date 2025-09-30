@@ -7,3 +7,5 @@ standalone/dist/
 /standalone/data
 /standalone/output/
 /standalone/xmagic-x86_64.AppImage
+/standalone/xmagic
+/standalone/output*
