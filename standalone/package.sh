@@ -36,20 +36,24 @@ if [[ $do_conda_pack -eq 1 ]]; then
     mv ${renv_name}.tar dist/usr/bin/
 fi
 
-# echo "Copying scripts and dependencies..."
-# cp -a scripts/* dist/scripts/
-# cp -a softwares/* dist/softwares/
-# cp -a config.yaml dist/
+echo "Copying scripts and dependencies..."
+mkdir -p dist/usr/bin
+mkdir -p dist/usr/lib
+mkdir -p dist/usr/share
 
-# echo "Clearing..."
-# rm -f ${renv_name}.tar.gz
+cp -a scripts dist/usr/bin/
+cp -a softwares dist/usr/bin/
+cp -a config.yaml dist/usr/bin/
+cp -a run.sh  dist/usr/bin/
 
-# echo "Distribution ready in dist/"
+cp -a resources/applications dist/usr/share/
+cp -a resources/icons dist/usr/share/
+cp -a resources/magic_renv.tar dist/usr/share/
+
+cp -a resources/AppRun dist/
 
 export NO_STRIP=1
 linuxdeploy-x86_64.AppImage --appdir=dist \
-    --executable=dist/usr/bin/softwares/smr \
-    --executable=dist/usr/bin/softwares/plink_1.90_beta \
     --desktop-file=dist/usr/share/applications/xmagic.desktop \
     --icon-file=dist/usr/share/icons/hicolor/256x256/apps/xmagic.png \
     --output=appimage \

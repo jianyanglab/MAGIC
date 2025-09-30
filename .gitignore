@@ -3,7 +3,7 @@ plot/
 results/
 scripts/out_log
 scripts/error_log
-standalone/dist/
+/standalone/dist*
 /standalone/data
 /standalone/output/
 /standalone/xmagic-x86_64.AppImage

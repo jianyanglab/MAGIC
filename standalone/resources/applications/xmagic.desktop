@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=xmagic
+Comment=xmagic
+Exec=run.sh %U
+Icon=xmagic
+Categories=Utility;

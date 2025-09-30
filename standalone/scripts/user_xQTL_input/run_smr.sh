@@ -1,17 +1,17 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-set -euo pipefail
+set -e
 
 CONFIG=$1
 qtl_i=$2
 chr1=$3
 chr2=$4
 
-mkdir -p ${OUTPUT}/SMR/detail
-mkdir -p ${OUTPUT}/SMR/summary
+mkdir -p ${OUTPUT}/MAGIC/SMR/detail
+mkdir -p ${OUTPUT}/MAGIC/SMR/summary
 
 qtl_name=$(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}')
-qtl_data=$(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}')
+qtl_data=$(realpath --relative-to=${MAGIC_ROOT} $(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'))
 qtl_chr=$(head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}')
 
 echo "SMR: ${SMR}"
@@ -26,19 +26,19 @@ for i in $(seq $chr1 $chr2); do
         QTL_data="${qtl_data}"
     fi
 
-    "${SMR}" --bfile "${REFERENCE}${i}" \
+    "${SMR}" --bfile "${REFERENCE}_chr${i}" \
         --gwas-summary "${GWAS_DATA}" \
         --beqtl-summary "${QTL_data}" \
         --maf 0.01 \
         --smr-multi \
         --thread-num 4 \
-        --out "${OUTPUT}/SMR/detail/${trait_name}_${qtl_name}_chr${i}"
+        --out "${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr${i}"
 
 done
 
-awk 'NR==1 || FNR>1' ${OUTPUT}/SMR/detail/${trait_name}_${qtl_name}_chr*.msmr > ${OUTPUT}/SMR/summary/${trait_name}_${qtl_name}_chrALL.msmr
+awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr*.msmr > ${OUTPUT}/MAGIC/SMR/summary/${trait_name}_${qtl_name}_chrALL.msmr
 
-rm ${OUTPUT}/SMR/detail/${trait_name}_${qtl_name}_chr*
+rm ${OUTPUT}/MAGIC/SMR/detail/${trait_name}_${qtl_name}_chr*
 
 
 
