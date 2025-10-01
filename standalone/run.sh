@@ -21,26 +21,14 @@ get_config_as_path() {
 
 # Resolve magic root 
 export MAGIC_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null 2>&1 && pwd -P)"
-
-# prepend path
-export PATH=$MAGIC_ROOT/softwares:$PATH
-
-MAGIC_RUNTIME=$(mktemp -d -t magic_runtime_XXXXXX)
+export MAGIC_RUNTIME=$(mktemp -d -t magic_runtime_XXXXXX)
 
 # Setup config.yaml
 cp $MAGIC_ROOT/config.yaml $MAGIC_RUNTIME/
-CONFIG=$MAGIC_RUNTIME/config.yaml
+export CONFIG=$MAGIC_RUNTIME/config.yaml
 
-# Setup R lang env
-RLANG_ENV=$MAGIC_RUNTIME/rlang_env
-mkdir -p $RLANG_ENV
-tar -xf $MAGIC_ROOT/../share/magic_renv.tar -C $RLANG_ENV/
-$RLANG_ENV/bin/conda-unpack
-
-# Force R to use only the bundled env libraries
-export R_LIBS_USER=
-export R_LIBS_SITE=
-export R_BIN=$RLANG_ENV/bin/Rscript
+# prepend path
+export PATH=$MAGIC_ROOT/softwares:$PATH
 
 export trait_name=$(yq -r .input.trait ${CONFIG})
 export SMR=$(get_config_as_path '.software.smr')
@@ -52,7 +40,6 @@ export OUTPUT=$(yq -r ".input.output" ${CONFIG})
 
 export plink1_9=$(get_config_as_path ".software.plink1_9")
 export epi_to_bed=$(get_config_as_path ".software.epi_to_bed")
-export bedtools=$RLANG_ENV/bin/bedtools
 export user_e2g_list=$(yq -r ".input.user_e2g_list" ${CONFIG})
 export user_xQTL_list=$(yq -r ".input.user_xQTL_list" ${CONFIG})
 export get_concensus_link=$(yq -r ".software.get_concensus_link" ${CONFIG})
@@ -133,6 +120,18 @@ function run {
         echo "Invalid chromosome index!"
         exit 1;
     fi
+
+    # Setup R lang env
+    export RLANG_ENV=$MAGIC_RUNTIME/rlang_env
+    mkdir -p $RLANG_ENV
+    tar -xf $MAGIC_ROOT/../share/magic_renv.tar -C $RLANG_ENV/
+    $RLANG_ENV/bin/conda-unpack
+
+    # Force R to use only the bundled env libraries
+    export R_LIBS_USER=
+    export R_LIBS_SITE=
+    export R_BIN=$RLANG_ENV/bin/Rscript
+    export bedtools=$RLANG_ENV/bin/bedtools
 
     export GWAS_DATA=$gwas
     export QTL_list=$xqtl_list
