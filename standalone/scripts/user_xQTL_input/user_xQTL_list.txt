@@ -1,6 +1,0 @@
-eQTL_INTERVAL	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/INTERVAL/besd/INTERVAL_eQTL_nominal_chr	TRUE	gene
-sQTL_INTERVAL	/storage/yangjianLab/sharedata/molecular_QTL/eQTL/INTERVAL/besd/INTERVAL_sQTL_nominal_chr	TRUE	gene
-pQTL_FENLAND	/storage/yangjianLab/sharedata/molecular_QTL/pQTL/pQTL_FENLAND/GRCh38/pQTL_FENLAND_merged_all_update	FALSE	gene
-caQTL_Neuro	/storage/yangjianLab/sharedata/molecular_QTL/caQTL/Brain_Neuron_Glia_Zeng_2023_BioRxiv/besd/neuron_meta_caQTL_chr	TRUE	epigenetic
-mQTL_GoDMC	/storage/yangjianLab/sharedata/molecular_QTL/mQTL/GoDMC/BESD_GRCh38/assoc_meta_chr	TRUE	epigenetic
-hQTL_Brain	/storage/yangjianLab/sharedata/molecular_QTL/hQTL/GTEx/besd/gARE_brain	FALSE	epigenetic

@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-CONFIG=config.yaml
-
 get_config_as_path() {
   local yq_filter=$1
   if [[ -z "$yq_filter" ]]; then
@@ -16,7 +14,7 @@ get_config_as_path() {
 
   local target
   target=$(yq -r $yq_filter ${CONFIG}) || return 1
-  [[ -n "$target" ]] || { echo "get_config_as_path: $yq_filter missing/empty in $config" >&2; return 1; }
+  [[ -n "$target" ]] || { echo "get_config_as_path: $yq_filter missing/empty in $CONFIG" >&2; return 1; }
 
   echo "${MAGIC_ROOT}/${target}"
 }
@@ -27,7 +25,15 @@ export MAGIC_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null 2>
 # prepend path
 export PATH=$MAGIC_ROOT/softwares:$PATH
 
-RLANG_ENV=$(mktemp -d -t rlang_env_XXXXXX)
+MAGIC_RUNTIME=$(mktemp -d -t magic_runtime_XXXXXX)
+
+# Setup config.yaml
+cp $MAGIC_ROOT/config.yaml $MAGIC_RUNTIME/
+CONFIG=$MAGIC_RUNTIME/config.yaml
+
+# Setup R lang env
+RLANG_ENV=$MAGIC_RUNTIME/rlang_env
+mkdir -p $RLANG_ENV
 tar -xf $MAGIC_ROOT/../share/magic_renv.tar -C $RLANG_ENV/
 $RLANG_ENV/bin/conda-unpack
 
@@ -155,14 +161,14 @@ function run {
     yq -i ".input.output = \"$OUTPUT\"" $CONFIG
 
     # Run scripts
-    ${SCRIPT_DIR}/run_clumping.sh config.yaml $chr1 $chr2
-    ${SCRIPT_DIR}/run_step_0.sh config.yaml $chr1 $chr2
+    ${SCRIPT_DIR}/run_clumping.sh $CONFIG $chr1 $chr2
+    ${SCRIPT_DIR}/run_step_0.sh $CONFIG $chr1 $chr2
 
     for qtl_i in $(seq ${QTL_list_num}); do
-        ${SCRIPT_DIR}/run_smr.sh config.yaml ${qtl_i} $chr1 $chr2
+        ${SCRIPT_DIR}/run_smr.sh $CONFIG ${qtl_i} $chr1 $chr2
     done
 
-    ${SCRIPT_DIR}/run_magic.sh config.yaml
+    ${SCRIPT_DIR}/run_magic.sh $CONFIG
 }
 
 echo `date`
