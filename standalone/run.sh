@@ -47,7 +47,7 @@ export genome_hg38=$(yq -r ".link_annotation.genome_hg38" ${CONFIG})
 export user_xQTL_link_consensus=$(yq -r '.input.user_xQTL_link_consensus' ${CONFIG})
 
 function usage {
-    echo "usage: xmagic --gwas-summary <gwas summary path> --bfile <referece bfile path> --besd-flist <besd file path> --e2g-flist <e2g file path> --out <output directory> --chr <chromosome range or index>"
+    echo "usage: xmagic --trait-name <trait-name> --gwas-summary <gwas summary path> --bfile <referece bfile path> --besd-flist <besd file path> --e2g-flist <e2g file path> --out <output directory> --chr <chromosome range or index>"
     echo "   ";
     echo "  --gwas-summary : GWAS summary statistics file (format similar to GCTA-COJO: https://yanglab.westlake.edu.cn/software/gcta/#COJO).";
     echo "  --bfile        : PLINK binary files (.bed, .bim, .fam) for LD reference.";
@@ -55,6 +55,7 @@ function usage {
     echo "  --e2g-flist    : A text file listing paths to multiple functional element-to-gene mapping files.";
     echo "  --out          : Prefix for output files, including gene-trait association p-values (.genes.ppa)."
     echo "  --chr          : Chromosome range or index, e.g. '1-22' or 1."
+    echo "  --trait-name   : Trait name."
     echo "  --verbose      : Print verbose information. Useful for debugging."
     echo "  --help         : This message";
 }
@@ -79,6 +80,7 @@ function parse_args {
             --e2g-flist )    e2g_list="$2";        shift;;
             --chr )          chr="$2";             shift;;
             --out )          output="$2";          shift;;
+            --trait-name )   trait_name="$2"       shift;;
             --verbose )      verbose=1;;
             -h | --help )    usage;                exit;; 
             * )              usage;                exit;;
@@ -149,6 +151,7 @@ function run {
         echo "  REFERENCE=${REFERENCE}"
         echo "  QTL_list_num=${QTL_list_num}"
         echo "  chr1=${chr1}, chr2=${chr2}"
+        echo "  trait_name=${trait_name}"
         echo "  OUTPUT=${OUTPUT}"
         echo "  bedtools=${bedtools}"
     fi
@@ -158,6 +161,7 @@ function run {
     yq -i ".input.user_e2g_list = \"$user_e2g_list\"" $CONFIG
     yq -i ".input.user_xQTL_list = \"$QTL_list\"" $CONFIG
     yq -i ".input.output = \"$OUTPUT\"" $CONFIG
+    yq -i ".input.trait = \"$trait_name\"" $CONFIG
 
     # Run scripts
     ${SCRIPT_DIR}/run_clumping.sh $CONFIG $chr1 $chr2
