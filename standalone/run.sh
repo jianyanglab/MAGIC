@@ -43,8 +43,20 @@ export epi_to_bed=$(get_config_as_path ".software.epi_to_bed")
 export user_e2g_list=$(yq -r ".input.user_e2g_list" ${CONFIG})
 export user_xQTL_list=$(yq -r ".input.user_xQTL_list" ${CONFIG})
 export get_concensus_link=$(yq -r ".software.get_concensus_link" ${CONFIG})
-export genome_hg38=$(yq -r ".link_annotation.genome_hg38" ${CONFIG})
+export genome_hg38="${MAGIC_ROOT}/../share/GRCh38.genome"
 export user_xQTL_link_consensus=$(yq -r '.input.user_xQTL_link_consensus' ${CONFIG})
+export reference_all_bim=$MAGIC_ROOT/../share/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_chrALL.bim
+
+export gencode_file="$MAGIC_ROOT/../share/gencode.v40.GRCh38.gene.annotation.bed"
+export CpG_link_file="$MAGIC_ROOT/../share/CpG_consensus_all.link"
+export hQTL_link_file="$MAGIC_ROOT/../share/hQTL_consensus_all.link"
+export caQTL_link_file="$MAGIC_ROOT/../share/caQTL_consensus_all.link"
+
+export reference_bim_file=$(yq -r .reference.reference_all_bim ${CONFIG})
+export user_xQTL_name_list=$(yq -r .input.user_xQTL_name_list ${CONFIG})
+export user_xQTL_link_consensus=$(yq -r .input.user_xQTL_link_consensus ${CONFIG})
+
+
 
 function usage {
     echo "usage: xmagic --trait-name <trait-name> --gwas-summary <gwas summary path> --bfile <referece bfile path> --besd-flist <besd file path> --e2g-flist <e2g file path> --out <output directory> --chr <chromosome range or index>"
@@ -80,7 +92,7 @@ function parse_args {
             --e2g-flist )    e2g_list="$2";        shift;;
             --chr )          chr="$2";             shift;;
             --out )          output="$2";          shift;;
-            --trait-name )   trait_name="$2"       shift;;
+            --trait-name )   trait_name="$2";      shift;;
             --verbose )      verbose=1;;
             -h | --help )    usage;                exit;; 
             * )              usage;                exit;;
@@ -137,6 +149,7 @@ function run {
 
     export GWAS_DATA=$gwas
     export QTL_list=$xqtl_list
+    export user_xQTL_list=$QTL_list
     export user_e2g_list=$e2g_list
     export REFERENCE=$reference_bfile
     export OUTPUT="${output}_$(date +%Y%m%d_%H%M%S)"
@@ -162,6 +175,15 @@ function run {
     yq -i ".input.user_xQTL_list = \"$QTL_list\"" $CONFIG
     yq -i ".input.output = \"$OUTPUT\"" $CONFIG
     yq -i ".input.trait = \"$trait_name\"" $CONFIG
+    yq -i ".link_annotation.genome_hg38 = \"$genome_hg38\"" $CONFIG
+    yq -i ".reference.reference_all_bim = \"$reference_all_bim\"" $CONFIG
+
+    yq -i ".gene.gencode = \"$gencode_file\"" ${CONFIG}
+    yq -i ".magic.CpG_link = \"$CpG_link_file\"" ${CONFIG}
+    yq -i ".magic.hQTL_link = \"$hQTL_link_file\"" ${CONFIG}
+    yq -i ".magic.caQTL_link = \"$caQTL_link_file\"" ${CONFIG}
+
+
 
     # Run scripts
     ${SCRIPT_DIR}/run_clumping.sh $CONFIG $chr1 $chr2

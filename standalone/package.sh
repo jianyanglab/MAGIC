@@ -49,6 +49,13 @@ cp -a run.sh  dist/usr/bin/
 cp -a resources/applications dist/usr/share/
 cp -a resources/icons dist/usr/share/
 cp -a resources/magic_renv.tar dist/usr/share/
+cp -a resources/GRCh38.genome dist/usr/share/
+cp -a resources/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_chrALL.bim dist/usr/share/
+cp -a resources/gencode.v40.GRCh38.gene.annotation.bed dist/usr/share/
+
+cp -a resources/CpG_consensus_all.link dist/usr/share/
+cp -a resources/hQTL_consensus_all.link dist/usr/share/
+cp -a resources/caQTL_consensus_all.link dist/usr/share/
 
 cp -a resources/AppRun dist/
 
