@@ -42,9 +42,9 @@ export plink1_9=$(get_config_as_path ".software.plink1_9")
 export epi_to_bed=$(get_config_as_path ".software.epi_to_bed")
 export user_e2g_list=$(yq -r ".input.user_e2g_list" ${CONFIG})
 export user_xQTL_list=$(yq -r ".input.user_xQTL_list" ${CONFIG})
-export get_concensus_link=$(yq -r ".software.get_concensus_link" ${CONFIG})
 export genome_hg38="${MAGIC_ROOT}/../share/GRCh38.genome"
 export user_xQTL_link_consensus=$(yq -r '.input.user_xQTL_link_consensus' ${CONFIG})
+export get_concensus_link=${SCRIPT_DIR}/user_xQTL_input/step0_get_consensus_link.R
 export reference_all_bim=$MAGIC_ROOT/../share/BED_ukbEUR_imp_v3_INFO0.8_maf0.01_mind0.05_geno0.05_hwe1e6_10K_hg38_chrALL.bim
 
 export gencode_file="$MAGIC_ROOT/../share/gencode.v40.GRCh38.gene.annotation.bed"
@@ -54,8 +54,6 @@ export caQTL_link_file="$MAGIC_ROOT/../share/caQTL_consensus_all.link"
 
 export reference_bim_file=$(yq -r .reference.reference_all_bim ${CONFIG})
 export user_xQTL_name_list=$(yq -r .input.user_xQTL_name_list ${CONFIG})
-export user_xQTL_link_consensus=$(yq -r .input.user_xQTL_link_consensus ${CONFIG})
-
 
 
 function usage {
@@ -167,6 +165,7 @@ function run {
         echo "  trait_name=${trait_name}"
         echo "  OUTPUT=${OUTPUT}"
         echo "  bedtools=${bedtools}"
+        echo "  get_concensus_link=$get_concensus_link"
     fi
 
     yq -i ".input.gwas = \"$GWAS_DATA\"" $CONFIG
@@ -182,8 +181,7 @@ function run {
     yq -i ".magic.CpG_link = \"$CpG_link_file\"" ${CONFIG}
     yq -i ".magic.hQTL_link = \"$hQTL_link_file\"" ${CONFIG}
     yq -i ".magic.caQTL_link = \"$caQTL_link_file\"" ${CONFIG}
-
-
+    yq -i ".software.get_concensus_link = \"$get_concensus_link\"" $CONFIG
 
     # Run scripts
     ${SCRIPT_DIR}/run_clumping.sh $CONFIG $chr1 $chr2
