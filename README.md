@@ -77,7 +77,9 @@ xmagic --besd-flist myxqtl.list --gwas-summary mygwas.ma --bfile myldref --e2g-f
 ```
 
 `--thresh-smr`: SMR significance threshold (default: 0.05).
+
 `--thresh-heidi`: HEIDI heterogeneity test threshold (default: 0.01).
+
 `--thread-num`: Number of threads for parallel computing.
 
 ## Data Management
