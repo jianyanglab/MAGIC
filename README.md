@@ -22,12 +22,24 @@ xMAGIC integrates GWAS and xQTL summary statistics in a single-step analysis.
 
 We have curated and prepared a variety of publicly available molecular QTL data (downloadable from the yanglab website) and functional element-to-gene maps (downloadable from the yanglab website), which users can use to perform the xMAGIC analysis with their specific complex trait of interest. For illustration purposes, we provide demonstration data that can be used to run xMAGIC analysis with the command line below.
 
+### Example Data
+
+To get started quickly, you can download example data files:
+
+```bash
+# Download the complete example dataset
+wget https://yanglab.westlake.edu.cn/data/magic-portal/example_data/GWAS_data.zip
+wget https://yanglab.westlake.edu.cn/data/magic-portal/example_data/e2g_data.zip
+wget https://yanglab.westlake.edu.cn/data/magic-portal/example_data/LD_reference.zip
+wget https://yanglab.westlake.edu.cn/data/magic-portal/example_data/xQTL_data.zip
+```
+
 ### Running xMAGIC
 
 The basic command to run xMAGIC is:
 
 ```
-xmagic --besd-flist /data/myxqtl.list --gwas-summary /data/mygwas.ma --bfile /data/myldref --e2g-flist /data/mye2g.list --out /data/myxmagic
+xmagic --besd-flist example_data/xQTL_data/user_xQTL_list.txt --gwas-summary example_data/GWAS_data/GWAS_T2D_chr11.txt --bfile example_data/LD_reference/ALL_1KGP3_Phase3_mind95_geno95_maf01_hwe1e06_chr11 --e2g-flist example_data/e2g_data/user_e2g_list.txt --out example_data/myxmagic_test
 ```
 
 `--besd-flist`: A file listing paths to multiple xQTL BESD files (format similar to SMR: https://yanglab.westlake.edu.cn/software/smr/#DataManagement). These can include eQTLs, sQTLs, pQTLs, mQTLs, haQTLs, etc.
@@ -69,6 +81,7 @@ chr1    1785285 1891117 -   ENSG00000078369 GNB1    0.0020844378    0.001483188 
 ```
 
 Columns include chromosome, start/end positions, strand, gene ID, gene symbol, overall xMAGIC p-value, and layer-specific p-values (eQTL, sQTL, pQTL, edQTL, caQTL, mQTL, hQTL), with NA indicating unavailable data.
+
 
 ### Additional Parameters
 
