@@ -18,6 +18,7 @@ mkdir -p ${OUTPUT}/MAGIC/Clumping/summary
 # ------------------------------------------------------------------------
 plink1_9=`yq .software.plink1_9 "${CONFIG}"`
 REFERENCE=`yq .reference.reference_bfile "${CONFIG}"`
+clump_field=`awk 'NR==1 {print $7}' ${GWAS_DATA}`
 
 # ----
 for i in $(seq 1 22)
@@ -33,7 +34,7 @@ ${plink1_9} \
     --clump-r2 0.05 \
     --clump-kb 1000 \
     --clump-snp-field SNP \
-    --clump-field P \
+	--clump-field ${clump_field} \
     --out ${OUTPUT}/MAGIC/Clumping/detail/${trait_name}_chr${i}
 
 done

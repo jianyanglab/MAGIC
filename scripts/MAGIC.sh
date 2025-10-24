@@ -13,6 +13,7 @@ OUTPUT=`yq .input.output "${CONFIG}"`
 mkdir -p ${OUTPUT}/MAGIC/plot
 mkdir -p ${OUTPUT}/MAGIC/summary
 mkdir -p ${OUTPUT}/MAGIC/gwas
+mkdir -p ${OUTPUT}/MAGIC/results
 
 # ------------------------------------------------------------------------
 #  MAGIC analysis
@@ -23,6 +24,7 @@ CpG_link_file=`yq .magic.CpG_link "${CONFIG}"`
 hQTL_link_file=`yq .magic.hQTL_link "${CONFIG}"`
 caQTL_link_file=`yq .magic.caQTL_link "${CONFIG}"`
 reference_bim_file=`yq .reference.reference_all_bim "${CONFIG}"`
+QTL_name_list=`yq .magic.QTL_name_list "${CONFIG}"`
 
 # env=`yq .environment.R_421 "${CONFIG}"`
 # source activate ${env}
@@ -36,5 +38,6 @@ Rscript ${SCRIPT_DIR}/MAGIC.R \
     ${hQTL_link_file} \
     ${caQTL_link_file} \
     ${GWAS_DATA} \
-    ${reference_bim_file}
+    ${reference_bim_file} \
+	${QTL_name_list}
 

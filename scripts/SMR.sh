@@ -19,7 +19,8 @@ mkdir -p ${OUTPUT}/MAGIC/SMR/summary
 
 SMR=`yq .software.smr "${CONFIG}"`
 REFERENCE_bld=`yq .reference.reference_bld "${CONFIG}"`
-QTL_list=`yq .magic.QTL_list "${CONFIG}"`
+# QTL_list=`yq .magic.QTL_list "${CONFIG}"`
+QTL_list=`yq .magic.QTL_list_lite_new "${CONFIG}"`
 
 # ----
 qtl_i=${SLURM_ARRAY_TASK_ID}
@@ -35,10 +36,16 @@ qtl_name=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $1}'`
 qtl_data=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $2}'`
 qtl_chr=`head -n ${qtl_i} ${QTL_list} | tail -n1 | awk -F "\t" '{print $3}'`
 
+if [ -z "$qtl_name" ]; then
+    echo "no QTL in line $qtl_i, skip"
+    exit 0
+fi
+
 for i in $(seq 1 22); do
 
     if [ "$qtl_chr" = "TRUE" ]; then
-        QTL_data="${qtl_data}${i}"
+        QTL_data="${qtl_data}_chr${i}"
+		# QTL_data="${qtl_data}${i}"
     else
         QTL_data="${qtl_data}"
     fi
@@ -46,6 +53,7 @@ for i in $(seq 1 22); do
     "${SMR}" --bld "${REFERENCE_bld}_chr${i}" \
         --gwas-summary "${GWAS_DATA}" \
         --beqtl-summary "${QTL_data}" \
+		--probe-chr ${i} \
         --maf 0.01 \
         --smr-multi \
         --thread-num 4 \
