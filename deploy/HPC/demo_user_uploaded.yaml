@@ -7,7 +7,7 @@ input:
   user_e2g_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/demo/user_e2g_list.txt"
   user_xQTL_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/data/demo/user_xQTL_list.txt"
   user_xQTL_name_list: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/results/MAGIC/user_xQTL/user_xQTL_name_list.txt"
-  user_xQTL_link_consensus: /storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/results/MAGIC/user_xQTL/user_xQTL_consensus.link.txt
+  user_xQTL_link_consensus: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/results/MAGIC/user_xQTL/user_xQTL_consensus.link.txt"
 script:
   work_path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
   path: "/storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/scripts"
