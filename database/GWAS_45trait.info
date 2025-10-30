@@ -1,0 +1,45 @@
+Allergic_disease	AG	Disease	Autoimmune	Allergic_disease
+Alzheimer_disease	AD	Disease	Neurological	AD_2022_NatGenet
+Amyotrophic_lateral_sclerosis	ALS	Disease	Neurological	ALS2021
+Asthma	ASM	Disease	Respiratory system	GBMI_EUR_Asthma
+Atrial_fibrillation	AF	Disease	Circulatory system	Nielsen_NatGen_2018_AF
+Bipolar_disorder	BIP	Disease	Psychiatric	bip2025_nature_multianc_no23andMe
+Breast_cancer	BRCA	Disease	Neoplasms	META_BRCAMETA_COJO
+Childhood-onset_asthma	CASM	Disease	Respiratory system	CHILD_ONSET_ASTHMA
+chronic_obstructive_pulmonary_disease	COPD	Disease	Respiratory system	GBMI_EUR_COPD
+Coronary_artery_disease	CAD	Disease	Circulatory system	CAD_Circulation_Research_2017
+COVID19_HGI_A2_ALL_leave_23andme	COVID	Disease	COVID19	COVID19_HGI_A2_ALL_leave_23andme_20220403
+Crohn's_disease	CD	Disease	Digestive system	cd_build37_40266_20161107
+eczema	ECM	Disease	Skin and subcutaneous tissue	eczema
+Gout	Gout	Disease	Musculoskeletal system and connective tissue	GBMI_EUR_Gout
+Heart_failure	HF	Disease	Circulatory system	GBMI_EUR_HF
+Inflammatory_bowel_disease	IBD	Disease	Digestive system	ibd_build37_59957_20161107
+Major_depression	MDD	Disease	Psychiatric	pgc-mdd2025_cell_no23andMe_div_v3-49-46-01
+Male_pattern_baldness	MPB	Disease	Skin and subcutaneous tissue	mpb_bolt_lmm_aut_x
+Multiple_sclerosis	MS	Disease	Neurological	MS_cojo_format
+Ovarian_cancer	OV	Disease	Neoplasms	META_OV_COJO
+Parkinson_disease	PD	Disease	Neurological	PD_Nalls_2019_Lancent_Neurology
+primary_open-angle_glaucoma	POAG	Disease	Eye and adnexa	GBMI_EUR_POAG
+Prostate_cancer	PRAD	Disease	Neoplasms	META_PRAD_COJO
+Rheumatoid_arthritis	RA	Disease	Musculoskeletal system and connective tissue	RA_Ishigaki_2022.EUR_all_auto_cojo
+Schizophrenia	SCZ	Disease	Psychiatric	PGC3_SCZ_wave3_public_INFO80
+systemic_lupus_erythematosus	SLS	Disease	Musculoskeletal system and connective tissue	SLS_Meta_Results
+Triglycerides	logTG	Traits	Metabolic	logTG_2021_Nature
+Type_2_diabetes	T2D	Disease	Metabolic system	T2D_EUR_2024_Nature
+Ulcerative_colitis	UC	Disease	Digestive system	uc_build37_45975_20161107
+Venous_thromboembolism	VTE	Disease	Circulatory system	GBMI_EUR_VTE
+Vitiligo	VIG	Disease	Skin and subcutaneous tissue	Vitiligo
+low-density_lipoprotein_cholesterol	LDL	Traits	Metabolic	LDL_2021_Nature
+high-density_lipoprotein_cholesterol	HDL	Traits	Metabolic	HDL_2021_Nature
+Total_cholesterol	TC	Traits	Metabolic	TC_2021_Nature
+Diastolic_blood_pressure	DBP	Traits	hemodynamic	Diastolic_blood_pressure
+Systolic_blood_pressure	SBP	Traits	hemodynamic	Systolic_blood_pressure
+Ultrasound-derived_eBMD	eBMD	Traits	bone	BEurope-Bmd-As-C-Gwas-SumStats
+Heel_bone_mineral_density_(BMD)_T-score	hBMD	Traits	bone	Heel_bone_mineral_density_hBMD
+Education_attainment	EA	Traits	cognitive	EA4_NG_2022_additive_excl_23andMe
+Glucose	Glucose	Traits	Metabolic	Biomarker_Glucose_2021_NG
+Height	Height	Traits	Musculoskeletal	GIANT_EUR_Height_2022_Nature
+Intelligence	IQ	Traits	cognitive	IQ_NG_2018
+estimated_Glomerular_Filtration_Rate_based_on_creatinine	eGFRcrea	Traits	hemodynamic	eGFRcrea_2025_Science_Multi_2.2M_Individuals
+Neuroticism	Neuroticism	Disease	Psychiatric	sumstats_neuroticism_ctg_format
+Red_blood_cell_count	RBC	Traits	Metabolic	BCX2_RBC_EA_GWAMA

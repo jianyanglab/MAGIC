@@ -44,8 +44,8 @@ fi
 for i in $(seq 1 22); do
 
     if [ "$qtl_chr" = "TRUE" ]; then
-        QTL_data="${qtl_data}_chr${i}"
-		# QTL_data="${qtl_data}${i}"
+        # QTL_data="${qtl_data}_chr${i}"
+		QTL_data="${qtl_data}${i}"
     else
         QTL_data="${qtl_data}"
     fi

@@ -9,4 +9,6 @@ scripts/error_log
 /standalone/xmagic-x86_64.AppImage
 /standalone/xmagic
 /standalone/output*
-/database/
+/database/results
+database/sbatch_script/out_log
+database/sbatch_script/error_log
