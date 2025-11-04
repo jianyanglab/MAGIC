@@ -26,8 +26,8 @@ SMR_jid=$(/opt/slurm/bin/sbatch --parsable \
   -J SMR_analysis \
   -c 5 \
   -p intel-sc3,amd-ep2,amd-ep2-short \
-  -q huge \
-  -a 1-391,406-428 \
+  -q normal \
+  -a 399 \
   --ntasks-per-node 1 \
   --mem 36G \
   -o ./out_log/smr/${trait_name}_SMR_%A_%a_out.txt \

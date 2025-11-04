@@ -28,6 +28,6 @@ magic:
   R_functions: "/storage/yangjianLab/guoyazhou/GAMMA_github/gamma-script/scripts/L2G/magic_functions.r"
   CpG_link: "/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus3/CpG_consensus3.link"
   hQTL_link: "/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus3/hQTL_consensus3.link"
-  caQTL_link: "/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus3caQTL_consensus3.link"
+  caQTL_link: "/storage/yangjianLab/qiting/SMR_Cauchy/link/consensus3/caQTL_consensus3.link"
 yaml:
   config: /storage/yangjianLab/guoyazhou/GAMMA_github/MAGIC/database/yaml_file/ASM.yaml

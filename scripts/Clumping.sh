@@ -10,8 +10,8 @@ GWAS_DATA=`yq .input.gwas "${CONFIG}"`
 trait_name=`yq .input.trait "${CONFIG}"`
 OUTPUT=`yq .input.output "${CONFIG}"`
 
-mkdir -p ${OUTPUT}/MAGIC/Clumping/detail
-mkdir -p ${OUTPUT}/MAGIC/Clumping/summary
+mkdir -p ${OUTPUT}/Clumping/detail
+mkdir -p ${OUTPUT}/Clumping/summary
 
 # ------------------------------------------------------------------------
 #  Clumping analysis
@@ -35,11 +35,11 @@ ${plink1_9} \
     --clump-kb 1000 \
     --clump-snp-field SNP \
 	--clump-field ${clump_field} \
-    --out ${OUTPUT}/MAGIC/Clumping/detail/${trait_name}_chr${i}
+    --out ${OUTPUT}/Clumping/detail/${trait_name}_chr${i}
 
 done
 
-awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/Clumping/detail/${trait_name}_chr*.clumped > ${OUTPUT}/MAGIC/Clumping/summary/${trait_name}.clumped 
+awk 'NR==1 || FNR>1' ${OUTPUT}/Clumping/detail/${trait_name}_chr*.clumped > ${OUTPUT}/Clumping/summary/${trait_name}.clumped 
 
 
 # ------------------------------------------------------------------------
@@ -47,7 +47,7 @@ awk 'NR==1 || FNR>1' ${OUTPUT}/MAGIC/Clumping/detail/${trait_name}_chr*.clumped 
 # ------------------------------------------------------------------------
 gencode=`yq .gene.gencode "${CONFIG}"`
 env=`yq .environment.R_421 "${CONFIG}"`
-source activate $env
+# source activate $env
 
 Rscript ${SCRIPT_DIR}/R_functions/Clumping_step2_results.R ${trait_name} ${OUTPUT}
 
