@@ -5,10 +5,15 @@ xMAGIC is a scalable method designed to integrate a large number of multi-omic x
 ![MAGIC_figure](figure/MAGIC.png)
 
 ## Installation
-Install from source:
-```
-git clone https://github.com/yanglab-westlake/xMAGIC  # Assumed repository
-cd xMAGIC
+
+You can download the executable binary in [release page](https://github.com/jianyanglab/MAGIC/releases).
+
+Or, install from source:
+
+``` bash
+git clone https://github.com/jianyanglab/MAGIC.git  # Assumed repository
+cd MAGIC/standalone
+./package.sh
 ```
 
 Verify the installation by running the following command:
