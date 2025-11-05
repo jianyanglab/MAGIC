@@ -13,14 +13,6 @@ wget https://github.com/jianyanglab/MAGIC/releases/download/v1.0.2/xmagic-linux
 chmod 754 xmagic-linux
 ```
 
-Or, install from source:
-
-``` bash
-git clone https://github.com/jianyanglab/MAGIC.git  # Assumed repository
-cd MAGIC/standalone
-./package.sh
-```
-
 Verify the installation by running the following command:
 ```
 xmagic-linux --help
