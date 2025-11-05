@@ -177,10 +177,10 @@ Columns include chromosome, start/end positions, strand, gene ID, gene symbol, G
 
 ## Data Management
 
-xMAGIC shares data formats with SMR. For full options, see [SMR documentation](https://yanglab.westlake.edu.cn/software/smr/). Curated xQTL datasets (428 total) can be downloaded from the yanglab website. Functional element-to-gene maps can be downloaded from the yanglab website.
+xMAGIC shares data formats with SMR. For full options, see [SMR documentation](https://yanglab.westlake.edu.cn/software/smr/). Curated xQTL datasets (428 total) and the functional element-to-gene maps can be downloaded from the yanglab website.
 
 ## Online analysis
-An online platform for xMAGIC is available at xMAGIC Portal (http://yanglab.westlake.edu.cn/software/xMAGIC), which requires only the upload of GWAS summary statistics (try `example_data/GWAS_data/GWAS_T2D_chr11.txt`).
+An online platform for xMAGIC is available at xMAGIC Portal (http://yanglab.westlake.edu.cn/xMAGIC), which requires only the upload of GWAS summary statistics (try `example_data/GWAS_data/GWAS_T2D_chr11.txt`).
 
 ## Citation
 Qi T, Guo Y, Chen C, Xu T, Luo J, Jiang Z, Chen H, Guo M, Wang K, Hou J, Yang J. (2025). Integrative analysis of hundreds of multi-omic and cross-context xQTL datasets links over three-quarters of GWAS loci to putative effector genes. Under Review.
