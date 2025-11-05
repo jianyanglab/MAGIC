@@ -44,7 +44,11 @@ wget https://yanglab.westlake.edu.cn/data/magic-portal/example_data/xQTL_data.zi
 The basic command to run xMAGIC is:
 
 ```
-xmagic --besd-flist example_data/xQTL_data/user_xQTL_list.txt --gwas-summary example_data/GWAS_data/GWAS_T2D_chr11.txt --bfile example_data/LD_reference/ALL_1KGP3_Phase3_mind95_geno95_maf01_hwe1e06_chr11 --e2g-flist example_data/e2g_data/user_e2g_list.txt --out example_data/myxmagic_test
+xmagic --besd-flist example_data/xQTL_data/user_xQTL_list.txt \
+	--gwas-summary example_data/GWAS_data/GWAS_T2D_chr11.txt \
+	--bfile example_data/LD_reference/ALL_1KGP3_Phase3_mind95_geno95_maf01_hwe1e06_chr11 \
+	--e2g-flist example_data/e2g_data/user_e2g_list.txt \
+	--out example_data/myxmagic_test
 ```
 
 `--besd-flist`: A file listing paths to multiple xQTL BESD files (format similar to SMR: https://yanglab.westlake.edu.cn/software/smr/#DataManagement). These can include eQTLs, sQTLs, pQTLs, mQTLs, haQTLs, etc.
