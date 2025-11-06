@@ -55,8 +55,8 @@ The basic command to run xMAGIC is:
 
 ### `--besd-flist`
 
-A text file that lists the paths to multiple xQTL BESD datasets (same style as SMR: https://yanglab.westlake.edu.cn/software/smr/#DataManagement).  
-You can mix different QTL types, e.g. eQTL, sQTL, pQTL, mQTL, haQTL, caQTL, etc.
+A text file that lists the paths to multiple xQTL BESD datasets (same format as SMR: https://yanglab.westlake.edu.cn/software/smr/#DataManagement).  
+These datasets can span multiple omics layers, such as transcriptomics (eQTL), proteomics (pQTL), and epigenomics (mQTL), and can be generated from diverse cellular or environmental conditions.
 
 **Example**
 
@@ -107,8 +107,8 @@ closestTSS	example_data/e2g_data/closestTSS_chr11.bed
 
 **Columns** are:
 
-1. **epigenetic link name** — the enhancer-promoter interaction resource name `ABC`, etc.
-2. **Path** — path to the enhancer-promoter interaction file.
+1. **epigenetic link name** — the epigentic mark-to-gene link name `ABC`, etc.
+2. **Path** — path to the epigentic mark-to-gene link file.
 	It is recommended to use **absolute paths** to avoid issues when running the program from different working directories.
 
 Example mapping file `example_data/e2g_data/ABC_chr11.bed`:
@@ -125,7 +125,7 @@ chr11	100576412	100576812	CNTN5	0.0194293770614472	A Cardiomyocyte
 chr11	100576412	100576812	CNTN5	0.0196700156255881	A Cardiomyocyte
 ```
 
-If you don’t have an epigenetic–gene interaction annotation file, we provide a set of reference epigenetic link files. These include the enhancer–promoter interactions from ABC, Roadmap, EpiMap, PCHiC, Promoter/Exon, and Closest TSS that were used in the xMAGIC paper.
+If you don’t have an epigentic mark-to-gene link files, we provide a set of link strategies, including ABC, Roadmap, EpiMap, PCHiC, Promoter, and Closest TSS that were used in our manuscript.
 ```
 wget https://yanglab.westlake.edu.cn/data/magic-portal/example_data/epimark_to_gene_links.tar.gz
 tar -xvzf epimark_to_gene_links.tar.gz
