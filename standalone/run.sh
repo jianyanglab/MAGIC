@@ -19,7 +19,7 @@ get_config_as_path() {
   echo "${MAGIC_ROOT}/${target}"
 }
 
-# Resolve magic root 
+# Resolve magic root
 export MAGIC_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" >/dev/null 2>&1 && pwd -P)"
 export MAGIC_RUNTIME=$(mktemp -d -t magic_runtime_XXXXXX)
 
@@ -92,7 +92,7 @@ function parse_args {
             --out )          output="$2";          shift;;
             --trait-name )   trait_name="$2";      shift;;
             --verbose )      verbose=1;;
-            -h | --help )    usage;                exit;; 
+            -h | --help )    usage;                exit;;
             * )              usage;                exit;;
         esac
         shift # move to next kv pair
@@ -139,9 +139,14 @@ function run {
     tar -xf $MAGIC_ROOT/../share/magic_renv.tar -C $RLANG_ENV/
     $RLANG_ENV/bin/conda-unpack
 
-    # Force R to use only the bundled env libraries
-    export R_LIBS_USER=
-    export R_LIBS_SITE=
+    # Clear potentially conflicting R variables and set correct ones
+    unset R_LIBS_USER
+    unset R_LIBS_SITE
+    export R_HOME="$RLANG_ENV/lib/R"
+    export R_LIBS="$RLANG_ENV/lib/R/library"
+
+    # Also prepend PATH and LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH="$RLANG_ENV/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
     export R_BIN=$RLANG_ENV/bin/Rscript
     export bedtools=$RLANG_ENV/bin/bedtools
 
